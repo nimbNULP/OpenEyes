@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">OpenEyes</string>
+    <string name="comfortableTransport">Зручний транспорт</string>
+    <string name="comfortablePlace">Зручні місця</string>
+    <string name="review">Відгуки</string>
+    <string name="goodLink">Корисна інформація</string>
+    <string name="done">Готово</string>
+</resources>
