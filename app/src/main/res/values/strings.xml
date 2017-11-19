@@ -5,4 +5,13 @@
     <string name="review">Відгуки</string>
     <string name="goodLink">Корисна інформація</string>
     <string name="done">Готово</string>
+    <string name="name">Назва</string>
+    <string name="describe">Опис</string>
+    <string name="adress">Адреса</string>
+    <string name="title_activity_activ">activ</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
