@@ -4,7 +4,9 @@
 
     <application
         android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainMenu">
@@ -14,8 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddComfortablePlace" />
-        <activity android:name=".ListOfPlace" />
+        <activity
+            android:name=".ListPlace"
+            android:label="@string/title_activity_list_place"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".addComfortablePlace"
+            android:label="@string/title_activity_add_comfortable_place"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddComfortablePlace"
+            android:label="@string/title_activity_add_comfortable_place"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddNewComfotablePlace"
+            android:label="@string/title_activity_add_new_comfotable_place"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -9,4 +9,7 @@
     <color name="buttonDone">#32CD32</color>
     <color name="black">#000000</color>
     <color name="aquablue">#03a9f4</color>
+    <color name="grey">#DCDCDC</color>
+    <color name="badPlace">#FF0000</color>
+    <color name="normalPlace">#FFFF00</color>
 </resources>
