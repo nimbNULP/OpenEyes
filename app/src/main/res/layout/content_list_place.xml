@@ -4,33 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.andriy.openeyes.ListOfPlace">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.andriy.openeyes.ListPlace"
+    tools:showIn="@layout/app_bar_list_place"
+    android:background="@color/grey">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/listOfPlace"
+    android:dividerHeight="0dp"
+        android:divider="@color/grey">
 
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </ListView>
+    </ListView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text3"/>
 
     <Button
-        android:id="@+id/goToAddPlace"
         style="@style/addButton"
+        android:id="@+id/addNewPlace"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_x="300dp"
-        android:layout_y="430dp"
+        android:layout_marginTop="184dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.974"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.981" />
+        app:layout_constraintVertical_bias="0.969" />
+
 </android.support.constraint.ConstraintLayout>

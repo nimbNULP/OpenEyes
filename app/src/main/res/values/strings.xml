@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">OpenEyes</string>
+    <string name="title_activity_list_place">ListPlace</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="comfortableTransport">Зручний транспорт</string>
     <string name="comfortablePlace">Зручні місця</string>
     <string name="review">Відгуки</string>
@@ -9,9 +12,9 @@
     <string name="describe">Опис</string>
     <string name="adress">Адреса</string>
     <string name="title_activity_activ">activ</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+    <string name="title_activity_add_comfortable_place">Додати зручне місце</string>
+    <string name="sign_in">Увійти</string>
+    <string name="sign_up">Зареєструватись</string>
+    <string name="title_activity_add_new_comfotable_place">AddNewComfotablePlace</string>
 </resources>

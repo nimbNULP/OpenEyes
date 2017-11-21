@@ -1,94 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimary">
+
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_marginTop="1dp"
         android:layout_height="4dp"
-        android:background="@color/colorAccent"/>
+        android:background="@color/colorAccent" />
 
 
     <LinearLayout
-        android:layout_marginTop="45dp"
         android:id="@+id/comfortableTransport"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_width="match_parent"
+        android:layout_width="265dp"
         android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/rounded_corners_for_menu"
         android:orientation="horizontal"
-        android:background="@drawable/rounded_corners_for_menu" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/transport"/>
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
-            android:textSize="21sp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/transport" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/comfortableTransport"
-            />
+            android:textColor="@color/white"
+            android:textSize="21sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="45dp"
+        android:onClick="goToList"
         android:id="@+id/comfortablePlace"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_width="match_parent"
+        android:layout_width="265dp"
         android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/rounded_corners_for_menu"
         android:orientation="horizontal"
-        android:background="@drawable/rounded_corners_for_menu" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comfortableTransport">
+
         <ImageView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/place"/>
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/place" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/comfortablePlace"
             android:textColor="@color/white"
-            android:textSize="21sp"
-            android:text="@string/comfortablePlace" />
+            android:textSize="21sp" />
     </LinearLayout>
 
     <LinearLayout
-        android:onClick="goToPlace"
-        android:layout_marginTop="180dp"
         android:id="@+id/goodLink"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
-        android:layout_width="match_parent"
+        android:layout_width="265dp"
         android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_corners_for_menu"
+        android:onClick="goToPlace"
         android:orientation="horizontal"
-        android:background="@drawable/rounded_corners_for_menu" >
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/comfortablePlace"
+        app:layout_constraintVertical_bias="0.702">
+
         <ImageView
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/goodlink"/>
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/white"
-            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/goodlink" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/goodLink"
-            />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </LinearLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
