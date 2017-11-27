@@ -16,5 +16,26 @@
     <string name="title_activity_add_comfortable_place">Додати зручне місце</string>
     <string name="sign_in">Увійти</string>
     <string name="sign_up">Зареєструватись</string>
+    <string name="email">Електронна пошта</string>
+    <string name="password">Пароль</string>
     <string name="title_activity_add_new_comfotable_place">AddNewComfotablePlace</string>
+    <string name="title_activity_login_page">Увійти</string>
+    <string name="title_activity_registration_page">Зареєструватись</string>
+    <string name="basicInformation">Загальна інформація</string>
+    <string name="nameUser">Ім`я</string>
+    <string name="category">Категорія</string>
+    <string name="information">Інформація</string>
+    <string name="title_activity_information_comfortable_place">InformationComfortablePlace</string>
+    <string name="way_to_place">Прокласти маршут</string>
+    <string name="theme">Тема</string>
+    <string name="rating">Оцінка</string>
+    <string name="send">Відправити</string>
+    <string name="cancel">Скасувати</string>
+    <string name="createComment">Додати відгук</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_add_coment_for_place">AddComentForPlace</string>
+
 </resources>
