@@ -31,7 +31,21 @@
         <activity
             android:name=".AddNewComfotablePlace"
             android:label="@string/title_activity_add_new_comfotable_place"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginPage"
+            android:label="@string/title_activity_login_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegistrationPage"
+            android:label="@string/title_activity_registration_page"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".InformationComfortablePlace"
+            android:label="@string/title_activity_information_comfortable_place"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TabFragment1" />
+        <activity android:name=".TabFragment2" />
     </application>
 
 </manifest>

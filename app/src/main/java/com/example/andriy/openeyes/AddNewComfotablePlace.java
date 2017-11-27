@@ -8,6 +8,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -142,7 +144,14 @@ public class AddNewComfotablePlace extends AppCompatActivity
                             @Override
                             public void onSuccess(Void aVoid) {
                                 uploadImageToDataBase();
-                                Toast.makeText(AddNewComfotablePlace.this,"Дані успішно записані", Toast.LENGTH_SHORT).show();
+                                View toastDone= AddNewComfotablePlace.this.getLayoutInflater().inflate(R.layout.toast_done,null);
+                                Toast toast=new Toast(getApplicationContext());
+                                toast.setView(toastDone);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.show();
+                                Intent intent=new Intent(AddNewComfotablePlace.this, ListPlace.class);
+                                startActivity(intent);
+
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -231,6 +240,14 @@ public class AddNewComfotablePlace extends AppCompatActivity
 
             }
         });
+    }
+    public  void goToLogin(View view){
+        Intent intent =new Intent(getBaseContext(), LoginPage.class);
+        startActivity(intent);
+    }
+    public  void goToRegistration(View view){
+        Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
+        startActivity(intent);
     }
 
 

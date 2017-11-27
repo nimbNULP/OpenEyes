@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +35,7 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
     ArrayList<Place> arrayPlace = new ArrayList();
     ListView listOfPlace;
     Button addNewPlace;
-    TextView text;
+    TextView text, buttonSignIn, adressTextComfortablePlace , describeTextComfortablePlace;
 
 
 
@@ -47,8 +49,17 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
         addNewPlace.setOnClickListener(this);
         listOfPlace=(ListView) findViewById(R.id.listOfPlace);
         getDataFromDatabase();
-
-
+        listOfPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               Place entry= (Place) adapterView.getAdapter().getItem(i);
+               Intent intent=new Intent(getApplicationContext(),InformationComfortablePlace.class);
+               intent.putExtra("name", entry.getName());
+               intent.putExtra("describe", entry.getDescribe());
+               intent.putExtra("adress", entry.getAdress());
+               startActivity(intent);
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -117,7 +128,18 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
                Intent intent =new Intent(ListPlace.this, AddNewComfotablePlace.class);
                 startActivity(intent);
             break;
+            case R.id.buttonSignIn:
+                goToLogin(view);
+                break;
         }
+    }
+    public  void goToLogin(View view){
+        Intent intent =new Intent(getBaseContext(), LoginPage.class);
+        startActivity(intent);
+    }
+    public  void goToRegistration(View view){
+        Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
+        startActivity(intent);
     }
 
     private void getDataFromDatabase() {

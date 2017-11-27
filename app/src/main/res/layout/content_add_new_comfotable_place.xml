@@ -9,28 +9,28 @@
     tools:showIn="@layout/app_bar_add_new_comfotable_place">
 
 
+    <LinearLayout
 
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
+        <ImageView
 
+            android:id="@+id/addImage"
             android:layout_width="match_parent"
-            android:layout_height="210dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-            <ImageView
-                android:id="@+id/addImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/add_image" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:src="@drawable/add_image" />
+    </LinearLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout4"
@@ -41,126 +41,128 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
             tools:layout_editor_absoluteX="16dp" />
 
-        <Button
-            android:id="@+id/button"
-            style="@style/addButton"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="180dp"
-            android:onClick="addDataToDataBase"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.974"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/button"
+        style="@style/addButton"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="344dp"
+        android:onClick="addDataToDataBase"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <ScrollView
-            android:layout_width="377dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button"
-            tools:ignore="MissingConstraints">
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="377dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        tools:ignore="MissingConstraints">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:text="@string/name"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:text="@string/name"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/addNamePlace"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
+                <EditText
+                    android:id="@+id/addNamePlace"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="4"
-                        android:gravity="center_horizontal"
-                        android:text="@string/describe"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/addDescribePlace"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:maxHeight="120dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:gravity="center"
-                        android:text="@string/adress"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/addAdressPlace"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
-                        android:gravity="start" />
-
-                </LinearLayout>
-
-                <RatingBar
-                    android:id="@+id/ratingPlace"
-                    style="@android:style/Widget.DeviceDefault.Light.RatingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:numStars="5"
-                    android:stepSize="0.5" />
             </LinearLayout>
-        </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"
+                    android:text="@string/describe"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/addDescribePlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:maxHeight="120dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:text="@string/adress"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/addAdressPlace"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="start" />
+
+            </LinearLayout>
+
+            <RatingBar
+                android:id="@+id/ratingPlace"
+                style="@android:style/Widget.DeviceDefault.Light.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:numStars="5"
+                android:stepSize="0.5" />
+        </LinearLayout>
+    </ScrollView>
 
 
 

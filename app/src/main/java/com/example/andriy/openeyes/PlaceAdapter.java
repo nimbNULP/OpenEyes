@@ -21,14 +21,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class PlaceAdapter extends ArrayAdapter<Place> {
 
     FirebaseStorage storage= FirebaseStorage.getInstance();
-
-    private static final String LOG_TAG = PlaceAdapter.class.getSimpleName();
-
 
     public PlaceAdapter(Activity context, ArrayList<Place> places) {
         super(context, 0, places);
