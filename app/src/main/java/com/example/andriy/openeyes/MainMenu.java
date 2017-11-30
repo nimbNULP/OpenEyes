@@ -14,12 +14,14 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
     }
-    public void goToList(View view){
-        Intent intent=new Intent(MainMenu.this, ListPlace.class);
+
+    public void goToList(View view) {
+        Intent intent = new Intent(MainMenu.this, ListPlace.class);
         startActivity(intent);
     }
-    public  void  goToLink(View view){
-        Intent intent=new Intent(getApplicationContext(), InformationComfortablePlace.class);
+
+    public void goToLink(View view) {
+        Intent intent = new Intent(getApplicationContext(), ListPlaceMap.class);
         startActivity(intent);
     }
 

@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -47,7 +47,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:onClick="goToList"
         android:id="@+id/comfortablePlace"
         android:layout_width="265dp"
         android:layout_height="70dp"
@@ -55,6 +54,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
         android:background="@drawable/rounded_corners_for_menu"
+        android:onClick="goToList"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"

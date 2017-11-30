@@ -25,8 +25,8 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-
             android:id="@+id/addImage"
+            android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/add_image" />
@@ -152,7 +152,96 @@
 
             </LinearLayout>
 
-            <RatingBar
+            <Spinner
+                android:background="@color/grey"
+                android:prompt="@string/category"
+                android:spinnerMode="dialog"
+                android:gravity="center"
+                android:elevation="6dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/categoryPlace"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/haveToilet"
+                    android:layout_gravity="center_vertical"/>
+                <CheckBox
+                    android:id="@+id/haveToilet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/haveElevator"
+                    android:layout_gravity="center_vertical"/>
+                <CheckBox
+                    android:id="@+id/haveElevator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/haveRamp"
+                    android:layout_gravity="center_vertical"/>
+                <CheckBox
+                    android:id="@+id/haveRamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/haveButtonHelp"
+                    android:layout_gravity="center_vertical"/>
+                <CheckBox
+                    android:id="@+id/haveButtonHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp">
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="@string/haveSwaddingTable"
+                    android:layout_gravity="center_vertical"/>
+                <CheckBox
+                    android:id="@+id/haveSwaddingTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+        <RatingBar
                 android:id="@+id/ratingPlace"
                 style="@android:style/Widget.DeviceDefault.Light.RatingBar"
                 android:layout_width="wrap_content"
@@ -161,6 +250,15 @@
                 android:layout_marginTop="15dp"
                 android:numStars="5"
                 android:stepSize="0.5" />
+            <Button
+                android:elevation="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@drawable/rounded_corners_for_menu"
+                android:text="@string/addLatLng"
+                android:onClick="addLatLngPlace"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
     </ScrollView>
 

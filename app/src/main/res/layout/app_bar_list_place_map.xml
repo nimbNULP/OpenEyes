@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.andriy.openeyes.InformationComfortablePlace">
+    tools:context="com.example.andriy.openeyes.ListPlaceMap">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -20,7 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_information_comfortable_place" />
-
+    <include layout="@layout/content_list_place_map" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -7,11 +7,16 @@ package com.example.andriy.openeyes;
 public class Review {
     String theme, textReview;
     String rating;
-    public Review(){};
-    public Review(String setTheme, String setTextReviews, String setRating){
-        theme=setTheme;
-        textReview=setTextReviews;
-        rating=setRating;
+
+    public Review() {
+    }
+
+    ;
+
+    public Review(String setTheme, String setTextReviews, String setRating) {
+        theme = setTheme;
+        textReview = setTextReviews;
+        rating = setRating;
     }
 
     public String getTheme() {
