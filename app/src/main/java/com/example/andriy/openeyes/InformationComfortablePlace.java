@@ -21,11 +21,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -34,20 +38,29 @@ import java.util.ArrayList;
 
 public class InformationComfortablePlace extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    NavigationView navigationView;
     Fragment fragmentInformation, fragmentReviews;
     FirebaseStorage storage= FirebaseStorage.getInstance();
     FragmentTransaction fragmentTransaction;
-    String adress, describe;
-    String name;
+    String adress, describe, name, latitude, longitude, category;
     TabLayout tabLayout;
     ArrayList<Review> arrayReviews;
     FirebaseFirestore dataBase= FirebaseFirestore.getInstance();
     ReviewAdapter reviewAdapter;
+    FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    FirebaseUser user;
+    View anonim, users;
+    Button addButton;
+    boolean isHaveToilet, isHaveElevator, isHaveRamp, isHaveButtonHelp, isHaveSwaddingTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information_comfortable_place);
+        anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
+        users=getLayoutInflater().inflate(R.layout.nav_header_user,null);
+        user=mAuth.getCurrentUser();
+        updateUI(user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -78,6 +91,16 @@ public class InformationComfortablePlace extends AppCompatActivity
         name=intent.getStringExtra("name");
         adress=intent.getStringExtra("adress");
         describe=intent.getStringExtra("describe");
+        latitude=intent.getStringExtra("latitude");
+        longitude=intent.getStringExtra("longitude");
+        category=intent.getStringExtra("category");
+        isHaveButtonHelp=intent.getBooleanExtra("isHaveButtonHelp",false);
+        isHaveToilet=intent.getBooleanExtra("isHaveToilet",false);
+        isHaveElevator=intent.getBooleanExtra("isHaveElevator",false);
+        isHaveRamp=intent.getBooleanExtra("isHaveRamp",false);
+        isHaveSwaddingTable=intent.getBooleanExtra("isHaveSwaddingTable",false);
+        addButton=(Button) findViewById(R.id.addButton);
+        addButton.setVisibility(View.INVISIBLE);
         setTitle(intent.getStringExtra("name"));
         final ImageView logoPlace=(ImageView) findViewById(R.id.logoInformationPlace) ;
         StorageReference storageRef = storage.getReference();
@@ -96,7 +119,8 @@ public class InformationComfortablePlace extends AppCompatActivity
 
             }
         });
-        fragmentInformation= new TabInfrormationComfortablePlace(intent.getStringExtra("adress"),intent.getStringExtra("describe"));
+        fragmentInformation= new TabInfrormationComfortablePlace(adress,describe,category,isHaveToilet,
+                isHaveElevator,isHaveRamp, isHaveButtonHelp, isHaveSwaddingTable);
         fragmentTransaction=getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fragmentContent,fragmentInformation);
         fragmentTransaction.commit();
@@ -109,8 +133,9 @@ public class InformationComfortablePlace extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     public void setInformation(View view) {
@@ -137,14 +162,16 @@ public class InformationComfortablePlace extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.menuComfortablePlace:
+                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_exit:
+                exitUser();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -153,18 +180,19 @@ public class InformationComfortablePlace extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-
-
+        switch (id) {
+            case R.id.showList:
+                startActivity(new Intent(getBaseContext(), ListPlace.class));
+                break;
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     public void goToNavigation(View view){
-        Uri gmmIntentUri = Uri.parse("geo:0,0?q="+adress);
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+", "+longitude);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
@@ -181,8 +209,11 @@ public class InformationComfortablePlace extends AppCompatActivity
 
 
     public void showInformation(){
+        addButton.setVisibility(View.INVISIBLE);
         fragmentTransaction=getFragmentManager().beginTransaction();
-        fragmentInformation= new TabInfrormationComfortablePlace(adress,describe);
+        fragmentInformation= new TabInfrormationComfortablePlace(adress,
+                describe,category,isHaveToilet,isHaveElevator,isHaveRamp,
+                isHaveButtonHelp, isHaveSwaddingTable);
         fragmentTransaction.replace(R.id.fragmentContent,fragmentInformation);
         fragmentTransaction.commit();
     }
@@ -192,6 +223,7 @@ public class InformationComfortablePlace extends AppCompatActivity
         fragmentReviews= new TabComentComfortablePlace(name);
         fragmentTransaction.replace(R.id.fragmentContent, fragmentReviews);
         fragmentTransaction.commit();
+        addButton.setVisibility(View.VISIBLE);
         Log.d("tag", "good");
     }
 
@@ -199,6 +231,30 @@ public class InformationComfortablePlace extends AppCompatActivity
         DialogFragment newFragment = new AddCommentPlace(name);
         newFragment.show(getFragmentManager(),"Comment");
 
+    }
+
+
+
+    public void updateUI(FirebaseUser user){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if(user!=null) {
+            navigationView.addHeaderView(users);
+            GetUserInformation getInformation = new GetUserInformation();
+            TextView nameText = (TextView) users.findViewById(R.id.userName);
+            ImageView userAvatar=(ImageView) users.findViewById(R.id.userAvatar);
+            getInformation.getInformation(user.getEmail(), nameText, userAvatar);
+            ((TextView) users.findViewById(R.id.userEmail)).setText(user.getEmail());
+        }else{
+
+            navigationView.removeHeaderView(users);
+            navigationView.addHeaderView(anonim);
+        }
+
+    }
+    public void exitUser(){
+        FirebaseAuth.getInstance().signOut();
+        user=mAuth.getCurrentUser();
+        updateUI(user);
     }
 
 

@@ -9,6 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM" />
+
         <activity android:name=".MainMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,14 +26,6 @@
         <activity
             android:name=".ListPlace"
             android:label="@string/title_activity_list_place"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".addComfortablePlace"
-            android:label="@string/title_activity_add_comfortable_place"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AddComfortablePlace"
-            android:label="@string/title_activity_add_comfortable_place"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNewComfotablePlace"
@@ -46,6 +45,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TabFragment1" />
         <activity android:name=".TabFragment2" />
+        <activity
+            android:name=".ListPlaceMap"
+            android:label="@string/title_activity_list_place_map"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddPositionPlace"></activity>
     </application>
 
 </manifest>

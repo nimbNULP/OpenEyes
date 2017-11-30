@@ -3,8 +3,9 @@ package com.example.andriy.openeyes;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,78 +15,62 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
-public class ListPlace extends AppCompatActivity implements View.OnClickListener ,
-        NavigationView.OnNavigationItemSelectedListener {
-    FirebaseFirestore dataBase=FirebaseFirestore.getInstance();
-    ArrayList<Place> arrayPlace = new ArrayList();
-    ListView listOfPlace;
-    Button addNewPlace;
+public class ListPlaceMap extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+
+    FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
+    Place place = new Place();
+    GoogleMap map;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
-    TextView text, buttonSignIn, adressTextComfortablePlace , describeTextComfortablePlace;
     View anonim, users;
-
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_place);
-        anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
-        users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
+        setContentView(R.layout.activity_list_place_map);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        addNewPlace=(Button) findViewById(R.id.addNewPlace)  ;
-        addNewPlace.setOnClickListener(this);
-        listOfPlace=(ListView) findViewById(R.id.listOfPlace);
-        getDataFromDatabase();
-        listOfPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               Place entry= (Place) adapterView.getAdapter().getItem(i);
-               Intent intent=new Intent(getApplicationContext(),InformationComfortablePlace.class);
-               intent.putExtra("name", entry.getName());
-               intent.putExtra("describe", entry.getDescribe());
-               intent.putExtra("adress", entry.getAdress());
-               intent.putExtra("latitude", String.valueOf(entry.getLatitude()));
-               intent.putExtra("longitude", String.valueOf(entry.getLongitude()));
-               intent.putExtra("category", entry.getCategory());
-               intent.putExtra("isHaveElevator", entry.isHaveElevator());
-               intent.putExtra("isHaveToilet", entry.isHaveToilet());
-               intent.putExtra("isHaveRamp", entry.isHaveRamp());
-               intent.putExtra("isHaveSwaddingTable", entry.isHaveSwaddingTable());
-               intent.putExtra("isHaveButtonHelp", entry.isHaveButtonHelp());
-               startActivity(intent);
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        getDataFromFirebase();
+        anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
+        users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
         updateUI(user);
+
     }
 
     @Override
@@ -101,7 +86,7 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list_place, menu);
+        getMenuInflater().inflate(R.menu.list_place_map, menu);
         return true;
     }
 
@@ -109,9 +94,11 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.showMap:
-                startActivity(new Intent(getBaseContext(), ListPlaceMap.class));
+            case R.id.showList:
+                startActivity(new Intent(getBaseContext(), ListPlace.class));
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -119,11 +106,11 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
+        int id = item.getItemId();
         switch(id){
             case R.id.menuComfortablePlace:
-                Intent intent=new Intent(ListPlace.this, ListPlace.class);
+                Intent intent=new Intent(getBaseContext(), ListPlace.class);
                 startActivity(intent);
                 break;
             case R.id.nav_exit:
@@ -135,50 +122,58 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
         return true;
     }
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.addNewPlace:
-               Intent intent =new Intent(ListPlace.this, AddNewComfotablePlace.class);
-                startActivity(intent);
-            break;
-            case R.id.buttonSignIn:
-                goToLogin(view);
-                break;
-        }
-    }
 
-    public void goToLogin(View view) {
-        Intent intent = new Intent(getBaseContext(), LoginPage.class);
-        startActivity(intent);
-    }
 
-    public void goToRegistration(View view) {
-        Intent intent = new Intent(getBaseContext(), RegistrationPage.class);
-        startActivity(intent);
-    }
-
-    private void getDataFromDatabase() {
-
+    public void getDataFromFirebase() {
         dataBase.collection("place")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
+                       if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
-                                arrayPlace.add(document.toObject(Place.class));
+                                place = document.toObject(Place.class);
+                                map.addMarker(new MarkerOptions()
+                                        .position(new LatLng(place.getLatitude(), place.getLongitude()))
+                                        .title(place.name).snippet(place.describe));
+                                Log.d("map", place.getName());
+
                             }
-                            PlaceAdapter placeAdapter = new PlaceAdapter(ListPlace.this, arrayPlace);
-                            listOfPlace.setAdapter(placeAdapter);
                         } else {
                             Log.d("Database", "Error getting documents: ", task.getException());
                         }
                     }
                 });
+    }
+
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        goToInformationPlace(marker.getTitle());
 
     }
 
+    public void goToInformationPlace(String title) {
+        dataBase.collection("place").document(title).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                place=documentSnapshot.toObject(Place.class);
+                Intent intent=new Intent(getBaseContext(), InformationComfortablePlace.class);
+                intent.putExtra("name", place.getName());
+                intent.putExtra("describe", place.getDescribe());
+                intent.putExtra("adress", place.getAdress());
+                intent.putExtra("latitude", String.valueOf(place.getLatitude()));
+                intent.putExtra("longitude", String.valueOf(place.getLongitude()));
+                intent.putExtra("category", place.getCategory());
+                intent.putExtra("isHaveElevator", place.isHaveElevator());
+                intent.putExtra("isHaveToilet", place.isHaveToilet());
+                intent.putExtra("isHaveRamp", place.isHaveRamp());
+                intent.putExtra("isHaveSwaddingTable", place.isHaveSwaddingTable());
+                intent.putExtra("isHaveButtonHelp", place.isHaveButtonHelp());
+                startActivity(intent);
+            }
+        });
+    }
     public void updateUI(FirebaseUser user){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if(user!=null) {
@@ -201,8 +196,16 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
         user=mAuth.getCurrentUser();
         updateUI(user);
     }
+    public  void goToAddPlace(View view){
+        Intent intent= new Intent(getBaseContext(), AddNewComfotablePlace.class);
+        startActivity(intent);
+    }
 
-
-
-
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        LatLng lviv = new LatLng(49.842133, 24.027282);
+        map = googleMap;
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lviv, 10));
+        googleMap.setOnInfoWindowClickListener(this);
+    }
 }

@@ -22,10 +22,10 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 
-
 public class PlaceAdapter extends ArrayAdapter<Place> {
 
-    FirebaseStorage storage= FirebaseStorage.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+
 
     public PlaceAdapter(Activity context, ArrayList<Place> places) {
         super(context, 0, places);
@@ -36,8 +36,8 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
     public View getView(int position, View convertView, ViewGroup parent) {
         // Check if the existing view is being reused, otherwise inflate the view
 
-            View listItemView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.item_place, parent, false);
+        View listItemView = LayoutInflater.from(getContext()).inflate(
+                R.layout.item_place, parent, false);
 
 
         // Get the {@link AndroidFlavor} object located at this position in the list
@@ -50,16 +50,15 @@ public class PlaceAdapter extends ArrayAdapter<Place> {
         namePlace.setText(currentPlace.getName());
 
 
-
-        LinearLayout accessibilityLayout=(LinearLayout) listItemView.findViewById(R.id.accessibilityLayout);
-        if (currentPlace.getRatingPlace()==1){
+        LinearLayout accessibilityLayout = (LinearLayout) listItemView.findViewById(R.id.accessibilityLayout);
+        if (currentPlace.getRatingPlace() == 1) {
             accessibilityLayout.setBackgroundResource(R.color.badPlace);
-        } else if(currentPlace.getRatingPlace()==2){
+        } else if (currentPlace.getRatingPlace() == 2) {
             accessibilityLayout.setBackgroundResource(R.color.normalPlace);
         }
         final ImageView iconView = (ImageView) listItemView.findViewById(R.id.logoPlace);
         StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child(currentPlace.getName()+".jpg");
+        StorageReference imageRef = storageRef.child(currentPlace.getName() + ".jpg");
 
         final long ONE_MEGABYTE = 1024 * 1024;
         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {

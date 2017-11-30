@@ -27,29 +27,33 @@ import java.util.ArrayList;
 
 public class TabComentComfortablePlace extends Fragment {
     ListView listReviews;
+    ConstraintLayout constraintLayoutFragment;
     String name;
     ReviewAdapter reviewAdapter;
-    ArrayList<Review> arrayReviews=new ArrayList<Review>();
-    public TabComentComfortablePlace(){}
+    ArrayList<Review> arrayReviews = new ArrayList<Review>();
+
+    public TabComentComfortablePlace() {
+    }
 
     @SuppressLint("ValidFragment")
-    public TabComentComfortablePlace(String setName){
-        name=setName;
+    public TabComentComfortablePlace(String setName) {
+        name = setName;
         Log.d("tab", name);
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       View view=inflater.inflate(R.layout.fragment_tab_coment_comfortable_place, container, false);
-       listReviews=(ListView) view.findViewById(R.id.listReviews) ;
+        View view = inflater.inflate(R.layout.fragment_tab_coment_comfortable_place, container, false);
+        listReviews = (ListView) view.findViewById(R.id.listReviews);
+        constraintLayoutFragment=(ConstraintLayout) view.findViewById(R.id.constraintLayoutFragment) ;
         getComentFromDataBase();
 
-        return  view;
+        return view;
     }
 
-    public void getComentFromDataBase(){
+    public void getComentFromDataBase() {
         Log.d("tab", name);
-        FirebaseFirestore dataBase=FirebaseFirestore.getInstance();
+        FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
         dataBase.collection("place").document(name).collection("review")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -60,7 +64,8 @@ public class TabComentComfortablePlace extends Fragment {
                                 Log.d("tab", document.toObject(Review.class).getTheme());
                                 arrayReviews.add(document.toObject(Review.class));
                             }
-                            listReviews.setAdapter(new ReviewAdapter(getActivity(),arrayReviews));
+                            constraintLayoutFragment.setMinHeight(650*arrayReviews.size());
+                            listReviews.setAdapter(new ReviewAdapter(getActivity(), arrayReviews));
 
                         } else {
                             Log.d("Database", "Error getting documents: ", task.getException());
