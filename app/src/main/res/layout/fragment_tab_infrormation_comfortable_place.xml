@@ -86,18 +86,22 @@
         app:layout_constraintTop_toBottomOf="@+id/adress" />
 
     <Button
-        android:layout_width="match_parent"
+        android:elevation="5dp"
+        android:id="@+id/button2"
+        android:layout_width="258dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/buttonDone"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/way_to_place"
         android:onClick="goToNavigation"
         android:text="@string/way_to_place"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout7"
@@ -213,6 +217,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 

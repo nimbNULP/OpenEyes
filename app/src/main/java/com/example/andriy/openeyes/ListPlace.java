@@ -49,6 +49,7 @@ public class ListPlace extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_place);
+        setTitle("Список місць");
         anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
         users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

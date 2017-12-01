@@ -176,14 +176,18 @@ public class InformationComfortablePlace extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case R.id.showList:
-                startActivity(new Intent(getBaseContext(), ListPlace.class));
+
+        switch(id){
+            case R.id.menuComfortablePlace:
+                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_exit:
+                exitUser();
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
