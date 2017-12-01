@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +56,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
     ImageView addImage;
     FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
     EditText addNamePlace, addDescribePlace, addAdressPlace;
+    TextView addLatLng;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user;
     View anonim, users;
@@ -69,10 +72,29 @@ public class AddNewComfotablePlace extends AppCompatActivity
         anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
         users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
         ratingPlace = (RatingBar) findViewById(R.id.ratingPlace);
+        addLatLng=(TextView) findViewById(R.id.addLatLng);
+        addLatLng.setVisibility(View.INVISIBLE);
         addImage = (ImageView) findViewById(R.id.addImage);
         addImage.setOnClickListener(this);
         addNamePlace = (EditText) findViewById(R.id.addNamePlace);
         addAdressPlace = (EditText) findViewById(R.id.addAdressPlace);
+        addAdressPlace.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                addLatLng.setVisibility(View.VISIBLE);
+                position=false;
+            }
+        });
         addDescribePlace = (EditText) findViewById(R.id.addDescribePlace);
         user=mAuth.getCurrentUser();
         updateUI(user);
@@ -257,6 +279,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
 
                    longitude=Double.valueOf(data.getStringExtra("longitude"));
                    latitude=Double.valueOf(data.getStringExtra("latitude"));
+                   addLatLng.setVisibility(View.INVISIBLE);
                    position=true;
                }
 
@@ -317,7 +340,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
 
     private  void addSpinner(){
         categoryPlace=(Spinner) findViewById(R.id.categoryPlace);
-        String[] arrayCategory = {"АЗС", "Aптеки", "Магазини","Заклади харчування","Лікарня", "Культурні місця","Інше"};
+        String[] arrayCategory = {"Виберіть категорію", "АЗС", "Aптеки", "Магазини","Заклади харчування","Лікарня", "Культурні місця","Інше"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, arrayCategory);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoryPlace.setAdapter(adapterCategory);

@@ -110,10 +110,13 @@ public class RegistrationPage extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-
+        switch(id){
+            case R.id.menuComfortablePlace:
+                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+                startActivity(intent);
+                break;
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

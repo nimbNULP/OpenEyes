@@ -70,6 +70,7 @@ public class ListPlaceMap extends AppCompatActivity
         anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
         users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
         updateUI(user);
+        setTitle("Карта місць");
 
     }
 
@@ -195,6 +196,14 @@ public class ListPlaceMap extends AppCompatActivity
         FirebaseAuth.getInstance().signOut();
         user=mAuth.getCurrentUser();
         updateUI(user);
+    }
+    public  void goToLogin(View view){
+        Intent intent =new Intent(getBaseContext(), LoginPage.class);
+        startActivity(intent);
+    }
+    public  void goToRegistration(View view){
+        Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
+        startActivity(intent);
     }
     public  void goToAddPlace(View view){
         Intent intent= new Intent(getBaseContext(), AddNewComfotablePlace.class);

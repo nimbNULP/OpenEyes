@@ -37,7 +37,7 @@
     <string name="title_activity_list_place_map">ListPlaceMap</string>
     <string name="api_map_key">AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM</string>
     <string name="title_activity_add_lat_lng_place">AddLatLngPlace</string>
-    <string name="addLatLng">Додати місцерозташуваняя</string>
+    <string name="addLatLng">Додати місцерозташуваня</string>
     <string name="showList">Відображення списком</string>
     <string name="showMap">Відображення на мапі</string>
     <string name="haveToilet">Обладниний туалет</string>
@@ -45,5 +45,7 @@
     <string name="haveSwaddingTable">Наявність пеленального столу</string>
     <string name="haveElevator">Наявність ліфту</string>
     <string name="haveButtonHelp">Наявність кнопки виклику</string>
+    <string name="terms">Умови</string>
+    <string name="title_activity_list_comfortable_place">ListComfortablePlace</string>
 
 </resources>
