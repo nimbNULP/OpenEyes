@@ -7,6 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.andriy.openeyes.ListComfortablePlace"
     tools:showIn="@layout/app_bar_list_comfortable_place">
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayoutListPlace"
         android:layout_width="match_parent"
@@ -29,5 +30,17 @@
             android:text="Карта" />
 
     </android.support.design.widget.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/fragmentContentListPlace"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutListPlace"
+        app:layout_constraintVertical_bias="0.0">
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

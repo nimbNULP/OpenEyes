@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,8 @@ public class LoginPage extends AppCompatActivity
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user;
     View anonim, users;
+    LinearLayout signIn;
+    TextView signUp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +51,8 @@ public class LoginPage extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         user = mAuth.getCurrentUser();
-
+        signIn=(LinearLayout) findViewById(R.id.buttonSignIn);
+        signUp=(TextView) findViewById(R.id.buttonSignUp) ;
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -81,7 +85,7 @@ public class LoginPage extends AppCompatActivity
 
        switch (id){
            case R.id.menuComfortablePlace:
-               Intent intent=new Intent(getBaseContext(), ListPlace.class);
+               Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
                startActivity(intent);
                break;
            case R.id.nav_exit:
@@ -98,7 +102,7 @@ public class LoginPage extends AppCompatActivity
         int id = item.getItemId();
         switch(id){
             case R.id.menuComfortablePlace:
-                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+                Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
                 startActivity(intent);
                 break;
             case R.id.nav_exit:
@@ -126,12 +130,22 @@ public class LoginPage extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            signIn.setClickable(false);
+                            signUp.setClickable(false);
                             user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            Intent intent=new Intent(getBaseContext(),MainMenu.class);
-                            startActivity(intent);
+                            if (user!=null) {
+
+                                updateUI(user);
+                                Intent intent = new Intent(getBaseContext(), MainMenu.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(getBaseContext(),"Не вірний логін або пароль",Toast.LENGTH_SHORT);
+                                signIn.setClickable(true);
+                                signUp.setClickable(true);
+                            }
+
                         } else {
-                            Toast.makeText(getBaseContext(),"Невірний логін або пароль",Toast.LENGTH_SHORT);
+                            Toast.makeText(getBaseContext(),"Помилка",Toast.LENGTH_SHORT);
                         }
 
 
