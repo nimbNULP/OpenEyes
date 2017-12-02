@@ -16,12 +16,12 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void goToList(View view) {
-        Intent intent = new Intent(MainMenu.this, ListPlace.class);
+        Intent intent = new Intent(MainMenu.this, ListComfortablePlace.class);
         startActivity(intent);
     }
 
     public void goToLink(View view) {
-        Intent intent = new Intent(getApplicationContext(), ListPlaceMap.class);
+        Intent intent = new Intent(getApplicationContext(), ListComfortablePlace.class);
         startActivity(intent);
     }
 

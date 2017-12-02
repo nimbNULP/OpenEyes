@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class RegistrationPage extends AppCompatActivity
     FirebaseFirestore dataBase=FirebaseFirestore.getInstance();
     Spinner categorySpinner;
     ImageView addAvatarUser;
+    LinearLayout signUp;
     private EditText editNewUserName, editNewUserPassword, editNewUserEmail;
 
     @Override
@@ -69,6 +71,7 @@ public class RegistrationPage extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         mAuth = FirebaseAuth.getInstance();
+        signUp=(LinearLayout) findViewById(R.id.buttonSignUp) ;
         editNewUserEmail = (EditText) findViewById(R.id.editNewUserEmail);
         editNewUserPassword = (EditText) findViewById(R.id.editNewUserPassword);
         editNewUserName=(EditText) findViewById(R.id.editNewUserName);
@@ -113,7 +116,7 @@ public class RegistrationPage extends AppCompatActivity
         int id = item.getItemId();
         switch(id){
             case R.id.menuComfortablePlace:
-                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+                Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
                 startActivity(intent);
                 break;
         }
@@ -124,6 +127,7 @@ public class RegistrationPage extends AppCompatActivity
 
 
     public void addUser(View view) {
+        signUp.setClickable(false);
         mAuth.createUserWithEmailAndPassword(editNewUserEmail.getText().toString(), editNewUserPassword.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -133,13 +137,12 @@ public class RegistrationPage extends AppCompatActivity
                             Log.d("tag", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             setInformation(user);
-                           // updateUI(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("tag", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(getBaseContext(), "Не вірний формат email",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
                         }
 
                         // ...
@@ -160,7 +163,7 @@ public class RegistrationPage extends AppCompatActivity
                         toast.setView(toastDone);
                         toast.setDuration(Toast.LENGTH_SHORT);
                         toast.show();
-                        Intent intent = new Intent(getBaseContext(), ListPlace.class);
+                        Intent intent = new Intent(getBaseContext(), ListComfortablePlace.class);
                         startActivity(intent);
 
                     }
