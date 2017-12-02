@@ -43,6 +43,14 @@
         <activity android:name=".TabFragment2" />
         <activity android:name=".AddPositionPlace" />
         <activity
+<<<<<<< HEAD
+=======
+            android:name=".ListPlaceMap"
+            android:label="@string/title_activity_list_place_map"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddPositionPlace" />
+        <activity
+>>>>>>> master
             android:name=".ListComfortablePlace"
             android:label="@string/title_activity_list_comfortable_place"
             android:theme="@style/AppTheme.NoActionBar"></activity>

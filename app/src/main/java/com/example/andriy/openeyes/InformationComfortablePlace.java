@@ -175,7 +175,11 @@ public class InformationComfortablePlace extends AppCompatActivity
 
         switch(id){
             case R.id.menuComfortablePlace:
+<<<<<<< HEAD
                 Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
+=======
+                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+>>>>>>> master
                 startActivity(intent);
                 break;
             case R.id.nav_exit:

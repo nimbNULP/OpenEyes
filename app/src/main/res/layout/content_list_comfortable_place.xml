@@ -7,7 +7,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.andriy.openeyes.ListComfortablePlace"
     tools:showIn="@layout/app_bar_list_comfortable_place">
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayoutListPlace"
         android:layout_width="match_parent"
@@ -31,6 +34,7 @@
 
     </android.support.design.widget.TabLayout>
 
+<<<<<<< HEAD
     <LinearLayout
         android:id="@+id/fragmentContentListPlace"
         android:layout_width="0dp"
@@ -43,4 +47,6 @@
 
     </LinearLayout>
 
+=======
+>>>>>>> master
 </android.support.constraint.ConstraintLayout>
