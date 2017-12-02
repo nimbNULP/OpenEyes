@@ -1,6 +1,5 @@
 package com.example.andriy.openeyes;
 
-<<<<<<< HEAD
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -8,11 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-=======
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
->>>>>>> master
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,7 +16,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -43,41 +36,20 @@ public class ListComfortablePlace extends AppCompatActivity
     FirebaseUser user=mAuth.getCurrentUser();
     View anonim, users;
     NavigationView navigationView;
-=======
-
-public class ListComfortablePlace extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
->>>>>>> master
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_comfortable_place);
-<<<<<<< HEAD
         setTitle("Зручні місця");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-=======
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
->>>>>>> master
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-<<<<<<< HEAD
         anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
         users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
         updateUI(user);
@@ -109,11 +81,6 @@ public class ListComfortablePlace extends AppCompatActivity
         fragmentTransaction=getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fragmentContentListPlace,listPlace);
         fragmentTransaction.commit();
-=======
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
->>>>>>> master
     }
 
     @Override
@@ -151,7 +118,6 @@ public class ListComfortablePlace extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-<<<<<<< HEAD
         int id = item.getItemId();
         switch(id){
             case R.id.menuComfortablePlace:
@@ -162,30 +128,10 @@ public class ListComfortablePlace extends AppCompatActivity
                 exitUser();
                 break;
         }
-=======
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
->>>>>>> master
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-<<<<<<< HEAD
     public void showList(){
         fragmentTransaction=getFragmentManager().beginTransaction();
         listPlace= new TabListPlace();
@@ -232,6 +178,4 @@ public class ListComfortablePlace extends AppCompatActivity
     }
 
 
-=======
->>>>>>> master
 }

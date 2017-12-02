@@ -102,11 +102,7 @@ public class LoginPage extends AppCompatActivity
         int id = item.getItemId();
         switch(id){
             case R.id.menuComfortablePlace:
-<<<<<<< HEAD
                 Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
-=======
-                Intent intent=new Intent(getBaseContext(), ListPlace.class);
->>>>>>> master
                 startActivity(intent);
                 break;
             case R.id.nav_exit:
