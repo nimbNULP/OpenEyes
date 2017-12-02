@@ -134,7 +134,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
 
         switch (id){
             case R.id.menuComfortablePlace:
-                Intent intent=new Intent(getBaseContext(), ListPlace.class);
+                Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
                 startActivity(intent);
                 break;
             case R.id.nav_exit:
@@ -153,7 +153,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
 
         switch (id) {
             case R.id.menuComfortablePlace:
-                Intent intent = new Intent(AddNewComfotablePlace.this, ListPlace.class);
+                Intent intent = new Intent(AddNewComfotablePlace.this, ListComfortablePlace.class);
                 startActivity(intent);
                 break;
         }
@@ -189,7 +189,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
                             toast.setView(toastDone);
                             toast.setDuration(Toast.LENGTH_SHORT);
                             toast.show();
-                            Intent intent = new Intent(AddNewComfotablePlace.this, ListPlace.class);
+                            Intent intent = new Intent(AddNewComfotablePlace.this, ListComfortablePlace.class);
                             startActivity(intent);
 
                         }
