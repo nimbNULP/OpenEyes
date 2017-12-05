@@ -4,10 +4,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabItem;
 import android.support.v4.app.FragmentActivity;
 import android.test.suitebuilder.annotation.Suppress;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Switch;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +25,8 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -33,6 +38,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.util.ArrayList;
 
@@ -45,6 +51,8 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
     Place place=new Place();
     GoogleMap map;
     MapView mapView;
+    BitmapDescriptor icon;
+
 
     public TabMapPlace() {
 
@@ -64,6 +72,7 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
         }
         mapView.getMapAsync(this);
         getDataFromFirebase();
+
         return view;
     }
     public void getDataFromFirebase() {
@@ -75,10 +84,76 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
                         if (task.isSuccessful()) {
                             for (DocumentSnapshot document : task.getResult()) {
                                 place = document.toObject(Place.class);
+                                switch (place.getCategory()){
+                                    case "Магазини":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_shop);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_shop);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_shop);
+                                        }
+                                        break;
+                                    case "АЗС":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_gasstation);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_gasstation);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_gasstation);
+                                        }
+                                        break;
+                                    case "Аптеки":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_pharmacy);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_pharmacy);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_pharmacy);
+                                        }
+                                        break;
+                                    case "Лікарні":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_hospital);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_hospital);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_hospital);
+                                        } break;
+                                    case "Заклади харчування":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_cafe);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_cafe);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_cafe);
+                                        } break;
+                                    case "Культурні місця":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_culturalplace);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_culturalplace);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_culturalplace);
+                                        } break;
+                                    case "Інше":
+                                        if(place.getRatingPlace()==1){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_sthelse);
+                                        }else if(place.getRatingPlace()==2){
+                                            icon= BitmapDescriptorFactory.fromResource(R.drawable.normal_sthelse);
+                                        } else{
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_sthelse);
+                                        } break;
+                                };
+
                                 map.addMarker(new MarkerOptions()
                                         .position(new LatLng(place.getLatitude(), place.getLongitude()))
-                                        .title(place.name).snippet(place.describe));
-                                Log.d("map", place.getName());
+                                        .title(place.name)
+                                        .snippet(place.describe))
+                                        .setIcon(icon);
+
+
+
 
                             }
                         } else {
@@ -86,6 +161,7 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
                         }
                     }
                 });
+
     }
 
     @Override
@@ -94,6 +170,8 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
         map = googleMap;
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lviv, 10));
         googleMap.setOnInfoWindowClickListener(this);
+
+
     }
 
     @Override

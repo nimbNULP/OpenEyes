@@ -9,8 +9,7 @@
     tools:showIn="@layout/app_bar_add_new_comfotable_place">
 
 
-    <LinearLayout
-
+    <android.support.design.widget.CoordinatorLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -25,12 +24,19 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
+            android:onClick="setAddImage"
+            android:id="@+id/foneImage"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_gravity="center"
+            android:src="@drawable/add_photo" />
+        <ImageView
+            android:onClick="setAddImage"
             android:id="@+id/addImage"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/add_image" />
-    </LinearLayout>
+            android:layout_height="match_parent" />
+    </android.support.design.widget.CoordinatorLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout4"
@@ -81,6 +87,15 @@
                 android:text="@string/basicInformation"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+            <TextView
+                android:onClick="addInformationFromGoogle"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addInfromationFromGoogle"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,6 +104,8 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
+
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -96,6 +113,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/name"
                     android:textSize="18sp" />
+
 
                 <EditText
                     android:id="@+id/addNamePlace"

@@ -21,8 +21,8 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void goToLink(View view) {
-        Intent intent = new Intent(getApplicationContext(), ListComfortablePlace.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getApplicationContext(), MapLayout.class);
+//        startActivity(intent);
     }
 
 

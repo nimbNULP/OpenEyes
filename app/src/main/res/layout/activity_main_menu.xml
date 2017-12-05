@@ -43,7 +43,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/comfortableTransport"
             android:textColor="@color/white"
-            android:textSize="21sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +75,7 @@
             android:layout_marginTop="20dp"
             android:text="@string/comfortablePlace"
             android:textColor="@color/white"
-            android:textSize="21sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout

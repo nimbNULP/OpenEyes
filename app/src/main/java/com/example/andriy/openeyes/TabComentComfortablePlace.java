@@ -9,11 +9,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TabItem;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 
 public class TabComentComfortablePlace extends Fragment {
     ListView listReviews;
+    TextView noComment;
     ConstraintLayout constraintLayoutFragment;
     String name;
     ReviewAdapter reviewAdapter;
@@ -45,6 +48,8 @@ public class TabComentComfortablePlace extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_coment_comfortable_place, container, false);
         listReviews = (ListView) view.findViewById(R.id.listReviews);
+        noComment=(TextView) view.findViewById(R.id.noComment);
+        noComment.setVisibility(View.INVISIBLE);
         constraintLayoutFragment=(ConstraintLayout) view.findViewById(R.id.constraintLayoutFragment) ;
         getComentFromDataBase();
 
@@ -65,14 +70,20 @@ public class TabComentComfortablePlace extends Fragment {
                                 arrayReviews.add(document.toObject(Review.class));
                             }
                             constraintLayoutFragment.setMinHeight(650*arrayReviews.size());
-                            listReviews.setAdapter(new ReviewAdapter(getActivity(), arrayReviews));
+                            if (arrayReviews.size()!=0) {
+                                listReviews.setAdapter(new ReviewAdapter(getActivity(), arrayReviews));
+                            }else{
+                                noComment.setVisibility(View.VISIBLE);
+                            }
 
                         } else {
                             Log.d("Database", "Error getting documents: ", task.getException());
                         }
                     }
                 });
+
     }
+
 
 
 }

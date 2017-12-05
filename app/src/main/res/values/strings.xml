@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="comfortableTransport">Зручний транспорт</string>
-    <string name="comfortablePlace">Зручні місця</string>
+
     <string name="review">Відгуки</string>
     <string name="goodLink">Корисна інформація</string>
     <string name="done">Готово</string>
@@ -35,7 +35,6 @@
     <string name="exitUser">Вийти</string>
     <string name="title_activity_add_coment_for_place">AddComentForPlace</string>
     <string name="title_activity_list_place_map">ListPlaceMap</string>
-    <string name="api_map_key">AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM</string>
     <string name="title_activity_add_lat_lng_place">AddLatLngPlace</string>
     <string name="addLatLng">Додати місцерозташуваня</string>
     <string name="showList">Відображення списком</string>
@@ -47,8 +46,18 @@
     <string name="haveButtonHelp">Наявність кнопки виклику</string>
     <string name="terms">Умови</string>
     <string name="title_activity_list_comfortable_place">ListComfortablePlace</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="noComment">Немає коментарів</string>
+    <string name="addInfromationFromGoogle">Додати інформацію з Google Maps</string>
+    <string name="filture">Фільтр</string>
+    <string name="shop">Магазини</string>
+    <string name="hospital">Лікарні</string>
+    <string name="cafe">Заклади харчування</string>
+    <string name="culturePlace">Культурні місця</string>
+    <string name="farmace">Аптеки</string>
+    <string name="other">Інше</string>
+    <string name="gasStation">AЗС</string>
+    <string name="all">Всі</string>
+    <string name="able">Застосувати</string>
+    <string name="api_map_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM</string>
+    <string name="comfortablePlace">Зручні місця</string>
 </resources>

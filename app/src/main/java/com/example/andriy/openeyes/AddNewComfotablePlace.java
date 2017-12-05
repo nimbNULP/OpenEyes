@@ -34,6 +34,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.AutocompleteFilter;
+import com.google.android.gms.location.places.PlacePhotoMetadata;
+import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
+import com.google.android.gms.location.places.PlacePhotoMetadataResult;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +57,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.maps.android.clustering.ClusterManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -49,11 +65,11 @@ import java.util.List;
 
 
 public class AddNewComfotablePlace extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
     NavigationView navigationView;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     RatingBar ratingPlace;
-    ImageView addImage;
+    ImageView addImage, foneImage;
     FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
     EditText addNamePlace, addDescribePlace, addAdressPlace;
     TextView addLatLng;
@@ -64,18 +80,30 @@ public class AddNewComfotablePlace extends AppCompatActivity
     double latitude, longitude;
     Spinner categoryPlace;
     CheckBox haveToilet, haveSwaddingTable, haveElevator, haveRamp, haveButtonHelp;
+    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 3;
+    GoogleApiClient mGoogleApiClient;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_comfotable_place);
+        setTitle("Додати зручне місце");
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(this, this)
+                .build();
+
+
         anonim=getLayoutInflater().inflate(R.layout.nav_header_anonim, null);
         users = getLayoutInflater().inflate(R.layout.nav_header_user, null);
         ratingPlace = (RatingBar) findViewById(R.id.ratingPlace);
         addLatLng=(TextView) findViewById(R.id.addLatLng);
         addLatLng.setVisibility(View.INVISIBLE);
         addImage = (ImageView) findViewById(R.id.addImage);
-        addImage.setOnClickListener(this);
         addNamePlace = (EditText) findViewById(R.id.addNamePlace);
         addAdressPlace = (EditText) findViewById(R.id.addAdressPlace);
         addAdressPlace.addTextChangedListener(new TextWatcher() {
@@ -96,6 +124,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
             }
         });
         addDescribePlace = (EditText) findViewById(R.id.addDescribePlace);
+        foneImage=(ImageView) findViewById(R.id.foneImage) ;
         user=mAuth.getCurrentUser();
         updateUI(user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -109,7 +138,8 @@ public class AddNewComfotablePlace extends AppCompatActivity
         addCheckBoxs();
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
+
+}
 
     @Override
     public void onBackPressed() {
@@ -216,26 +246,19 @@ public class AddNewComfotablePlace extends AppCompatActivity
         return valueRatingPlace;
     }
 
-    ;
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.addImage:
-                if(addNamePlace.getText().length()!=0) {
-                    Intent getImage = new Intent(Intent.ACTION_PICK);
-                    getImage.setType("image/*");
-                    startActivityForResult(getImage, 1);
-                }
-                else{
-                    Toast.makeText(getBaseContext(),"Введіть назву місця", Toast.LENGTH_SHORT).show();
-                }
-                break;
 
+    public void setAddImage(View view) {
+        if (addNamePlace.getText().length() != 0) {
+            Intent getImage = new Intent(Intent.ACTION_PICK);
+            getImage.setType("image/*");
+            startActivityForResult(getImage, 1);
+        } else {
+            Toast.makeText(getBaseContext(), "Введіть назву місця", Toast.LENGTH_SHORT).show();
         }
-    }
 
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -247,7 +270,10 @@ public class AddNewComfotablePlace extends AppCompatActivity
                if (resultCode == RESULT_OK) {
                    Uri SelectedImage = data.getData();
                    try {
+
                        logoImage = MediaStore.Images.Media.getBitmap(getContentResolver(), SelectedImage);
+                       addImage.setImageBitmap(logoImage);
+                       foneImage.setVisibility(View.INVISIBLE);
                        StorageReference storageRef = storage.getReference();
                        StorageReference mountainsRef = storageRef.child(addNamePlace.getText().toString() + ".jpg");
                        StorageReference mountainImagesRef = storageRef.child("place/" + addNamePlace.getText().toString() + ".jpg");
@@ -266,12 +292,13 @@ public class AddNewComfotablePlace extends AppCompatActivity
                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                            }
+
                        });
-                       getImageFromFirebase();
+
                    } catch (IOException e) {
                        e.printStackTrace();
                    }
-                   addImage.setImageBitmap(logoImage);
+
                }
                break;
            case 2:
@@ -282,17 +309,44 @@ public class AddNewComfotablePlace extends AppCompatActivity
                    addLatLng.setVisibility(View.INVISIBLE);
                    position=true;
                }
+               break;
+           case 3: if (resultCode == RESULT_OK) {
+               com.google.android.gms.location.places.Place place = PlaceAutocomplete.getPlace(this, data);
+               ratingPlace.setRating(place.getRating());
+               addAdressPlace.setText(place.getAddress());
+               addNamePlace.setText(place.getName());
+               addDescribePlace.setText(place.getAttributions());
+               latitude=place.getLatLng().latitude;
+               longitude=place.getLatLng().longitude;
+               addLatLng.setVisibility(View.INVISIBLE);
+               position=true;
+           } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+               Status status = PlaceAutocomplete.getStatus(this, data);
+
+           } else if (resultCode == RESULT_CANCELED) {
+               // The user canceled the operation.
+           }
 
        }
     }
 
-
-
+    public void addInformationFromGoogle(View view){
+        try {
+            Intent intent =
+                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                            .setBoundsBias(new LatLngBounds(new LatLng(49.842133, 24.027282), new LatLng(50.171449, 24.371347)))
+                            .build(this);
+            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // TODO: Handle the error.
+        }
+    }
     public void goToLogin(View view) {
         Intent intent = new Intent(getBaseContext(), LoginPage.class);
         startActivity(intent);
     }
-
     public void goToRegistration(View view) {
         Intent intent = new Intent(getBaseContext(), RegistrationPage.class);
         startActivity(intent);
@@ -313,10 +367,12 @@ public class AddNewComfotablePlace extends AppCompatActivity
         }
 
     }
-    public void exitUser(){
-        FirebaseAuth.getInstance().signOut();
-        user=mAuth.getCurrentUser();
-        updateUI(user);
+    public void exitUser() {
+        if (user != null) {
+            FirebaseAuth.getInstance().signOut();
+            user = mAuth.getCurrentUser();
+            updateUI(user);
+        }
     }
     public void addLatLngPlace(View view) throws IOException {
         Intent intent = new Intent(getBaseContext(), AddPositionPlace.class);
@@ -337,7 +393,6 @@ public class AddNewComfotablePlace extends AppCompatActivity
             return false;
         }
     }
-
     private  void addSpinner(){
         categoryPlace=(Spinner) findViewById(R.id.categoryPlace);
         String[] arrayCategory = {"Виберіть категорію", "АЗС", "Aптеки", "Магазини","Заклади харчування","Лікарня", "Культурні місця","Інше"};
@@ -352,25 +407,9 @@ public class AddNewComfotablePlace extends AppCompatActivity
         haveRamp=(CheckBox) findViewById(R.id.haveRamp);
         haveSwaddingTable=(CheckBox) findViewById(R.id.haveSwaddingTable);
     }
-    private  void getImageFromFirebase(){
-        StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child(addNamePlace.getText().toString());
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-        final long ONE_MEGABYTE = 1024 * 1024;
-        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                addImage.setImageBitmap(bmp);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-            }
-        });
     }
-
-
 }
 

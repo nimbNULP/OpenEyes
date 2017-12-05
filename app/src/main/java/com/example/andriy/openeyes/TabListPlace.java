@@ -1,11 +1,13 @@
 package com.example.andriy.openeyes;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabItem;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,15 +31,18 @@ public class TabListPlace extends Fragment {
     ArrayList<Place> arrayPlace=new ArrayList<Place>();
     ListView listOfPlace;
 
-    public TabListPlace() {
+
+    public  TabListPlace(){
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_list_place, container, false);
         listOfPlace=(ListView) view.findViewById(R.id.listOfPlace);
+
         getPlaceFromDataBase();
         listOfPlace.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,6 +81,7 @@ public class TabListPlace extends Fragment {
                         }
                     }
                 });
+
     }
 
 

@@ -128,28 +128,31 @@ public class RegistrationPage extends AppCompatActivity
 
     public void addUser(View view) {
         signUp.setClickable(false);
-        mAuth.createUserWithEmailAndPassword(editNewUserEmail.getText().toString(), editNewUserPassword.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("tag", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            setInformation(user);
+        if (checkEditText(editNewUserEmail) && checkEditText(editNewUserName) && checkEditText(editNewUserPassword)) {
+            mAuth.createUserWithEmailAndPassword(editNewUserEmail.getText().toString(), editNewUserPassword.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d("tag", "createUserWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                setInformation(user);
 
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("tag", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(getBaseContext(), "Не вірний формат email",
-                                    Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w("tag", "createUserWithEmail:failure", task.getException());
+                                Toast.makeText(getBaseContext(), "Не вірний формат email",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                            // ...
                         }
-
-                        // ...
-                    }
-                });
+                    });
+        }
     }
-    private void setInformation(FirebaseUser user){
+    private void setInformation(FirebaseUser user) {
+
 
         dataBase.collection("users")
                 .document(editNewUserEmail.getText().toString())
@@ -228,4 +231,23 @@ public class RegistrationPage extends AppCompatActivity
             }
         }
     }
+    public void goToLogin(View view) {
+        Intent intent = new Intent(getBaseContext(), LoginPage.class);
+        startActivity(intent);
+    }
+
+    public void goToRegistration(View view) {
+        Intent intent = new Intent(getBaseContext(), RegistrationPage.class);
+        startActivity(intent);
+    }
+
+    private boolean checkEditText(EditText editText) {
+        if (editText.getText().length() == 0) {
+            Toast.makeText(getBaseContext(), "Заповніть усі поля", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

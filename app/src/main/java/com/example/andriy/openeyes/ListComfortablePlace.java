@@ -1,11 +1,13 @@
 package com.example.andriy.openeyes;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -20,6 +22,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +35,7 @@ public class ListComfortablePlace extends AppCompatActivity
     Fragment listPlace, mapPlace;
     FragmentTransaction fragmentTransaction;
     TabLayout tabLayout;
+    TabItem tabList, tabMap;
     FirebaseAuth mAuth= FirebaseAuth.getInstance();
     FirebaseUser user=mAuth.getCurrentUser();
     View anonim, users;
@@ -44,6 +48,8 @@ public class ListComfortablePlace extends AppCompatActivity
         setTitle("Зручні місця");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        tabList=(TabItem) findViewById(R.id.tabShowList);
+        tabMap=(TabItem) findViewById(R.id.tabShowMap);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -81,6 +87,7 @@ public class ListComfortablePlace extends AppCompatActivity
         fragmentTransaction=getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fragmentContentListPlace,listPlace);
         fragmentTransaction.commit();
+
     }
 
     @Override
@@ -93,12 +100,7 @@ public class ListComfortablePlace extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.list_comfortable_place, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -139,10 +141,12 @@ public class ListComfortablePlace extends AppCompatActivity
         fragmentTransaction.commit();
     }
     public void showMap(){
+
         fragmentTransaction=getFragmentManager().beginTransaction();
         mapPlace= new TabMapPlace();
         fragmentTransaction.replace(R.id.fragmentContentListPlace,mapPlace);
         fragmentTransaction.commit();
+
     }
     public void updateUI(FirebaseUser user){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -160,22 +164,33 @@ public class ListComfortablePlace extends AppCompatActivity
 
     }
     public void exitUser(){
-        FirebaseAuth.getInstance().signOut();
-        user=mAuth.getCurrentUser();
-        updateUI(user);
+        if(user!=null) {
+            FirebaseAuth.getInstance().signOut();
+            user = mAuth.getCurrentUser();
+            updateUI(user);
+        }
     }
     public  void goToLogin(View view){
         Intent intent =new Intent(getBaseContext(), LoginPage.class);
         startActivity(intent);
+
     }
     public  void goToRegistration(View view){
         Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
         startActivity(intent);
     }
     public  void goToAddPlace(View view){
-        Intent intent= new Intent(getBaseContext(), AddNewComfotablePlace.class);
-        startActivity(intent);
+        if (user!=null) {
+            Intent intent = new Intent(getBaseContext(), AddNewComfotablePlace.class);
+            startActivity(intent);
+        }else
+        {
+            Toast.makeText(getBaseContext(),"Для додавання місця потрібно авторизуватись", Toast.LENGTH_SHORT).show();
+        }
     }
-
+    public void  showFilture(View view){
+        DialogFragment newFragment = new FilturePlace();
+        newFragment.show(getFragmentManager(), "Comment");
+    }
 
 }

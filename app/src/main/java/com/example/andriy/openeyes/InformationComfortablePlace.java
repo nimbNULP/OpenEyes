@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -223,34 +224,39 @@ public class InformationComfortablePlace extends AppCompatActivity
         Log.d("tag", "good");
     }
 
-    public void confirmFireMissiles(View view) {
-        DialogFragment newFragment = new AddCommentPlace(name);
-        newFragment.show(getFragmentManager(),"Comment");
-
-    }
-
-
-
-    public void updateUI(FirebaseUser user){
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if(user!=null) {
-            navigationView.addHeaderView(users);
-            GetUserInformation getInformation = new GetUserInformation();
-            TextView nameText = (TextView) users.findViewById(R.id.userName);
-            ImageView userAvatar=(ImageView) users.findViewById(R.id.userAvatar);
-            getInformation.getInformation(user.getEmail(), nameText, userAvatar);
-            ((TextView) users.findViewById(R.id.userEmail)).setText(user.getEmail());
+    public void addRewiew(View view) {
+        if (user!=null) {
+            DialogFragment newFragment = new AddCommentPlace(name);
+            newFragment.show(getFragmentManager(), "Comment");
         }else{
-
-            navigationView.removeHeaderView(users);
-            navigationView.addHeaderView(anonim);
+            Toast.makeText(getBaseContext(), "Для додавання коментаря потрібно авторизуватись", Toast.LENGTH_SHORT).show();
         }
 
     }
+
+
+
+    public void updateUI(FirebaseUser user) {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        if (user != null) {
+            navigationView.addHeaderView(users);
+            GetUserInformation getInformation = new GetUserInformation();
+            TextView nameText = (TextView) users.findViewById(R.id.userName);
+            ImageView userAvatar = (ImageView) users.findViewById(R.id.userAvatar);
+            getInformation.getInformation(user.getEmail(), nameText, userAvatar);
+            ((TextView) users.findViewById(R.id.userEmail)).setText(user.getEmail());
+        } else {
+            navigationView.removeHeaderView(users);
+            navigationView.addHeaderView(anonim);
+        }
+    }
+
     public void exitUser(){
-        FirebaseAuth.getInstance().signOut();
-        user=mAuth.getCurrentUser();
-        updateUI(user);
+        if(user!=null) {
+            FirebaseAuth.getInstance().signOut();
+            user = mAuth.getCurrentUser();
+            updateUI(user);
+        }
     }
 
 

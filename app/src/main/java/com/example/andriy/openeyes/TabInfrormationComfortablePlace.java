@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class TabInfrormationComfortablePlace extends Fragment {
 
     public TabInfrormationComfortablePlace(String adr, String desc, String setCategory, boolean setIsHaveToilet,
                                             boolean setIsHaveElevator, boolean setIsHaveRamp,
-                                           boolean setIsHaveButtonHelp, boolean setIsHaveSwaddingTable) {
+                                           boolean setIsHaveButtonHelp, boolean setIsHaveSwaddingTable ) {
         adress = adr;
         describe = desc;
         categoty=setCategory;
@@ -31,6 +32,7 @@ public class TabInfrormationComfortablePlace extends Fragment {
         isHaveRamp=setIsHaveRamp;
         isHaveSwaddingTable=setIsHaveSwaddingTable;
         isHaveToilet=setIsHaveToilet;
+
     }
 
     @Override

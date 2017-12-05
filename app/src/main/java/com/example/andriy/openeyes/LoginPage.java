@@ -6,6 +6,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -124,34 +125,35 @@ public class LoginPage extends AppCompatActivity
         startActivity(intent);
     }
     public  void signIn(View view){
+        signIn.setClickable(false);
+        signUp.setClickable(false);
         if (user==null){
-        mAuth.signInWithEmailAndPassword(editEmail.getText().toString(), editPassword.getText().toString())
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            signIn.setClickable(false);
-                            signUp.setClickable(false);
-                            user = mAuth.getCurrentUser();
-                            if (user!=null) {
+            if(checkEditText(editEmail)&&checkEditText(editPassword)) {
+                mAuth.signInWithEmailAndPassword(editEmail.getText().toString(), editPassword.getText().toString())
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    user = mAuth.getCurrentUser();
+                                    if (user != null) {
+                                       finish();
+                                    }
+                                }
+                                    else {
 
-                                updateUI(user);
-                                Intent intent = new Intent(getBaseContext(), MainMenu.class);
-                                startActivity(intent);
-                            }else{
-                                Toast.makeText(getBaseContext(),"Не вірний логін або пароль",Toast.LENGTH_SHORT);
-                                signIn.setClickable(true);
-                                signUp.setClickable(true);
-                            }
+                                        Toast.makeText(getBaseContext(), "Не вірний логін або пароль", Toast.LENGTH_SHORT).show();
+                                        signIn.setClickable(true);
+                                        signUp.setClickable(true);
+                                    }
 
-                        } else {
-                            Toast.makeText(getBaseContext(),"Помилка",Toast.LENGTH_SHORT);
-                        }
+                                }
 
 
-                    }
-                });
-        }else{
+
+                            });
+            }
+        }
+        else{
             Toast.makeText(getBaseContext(),"Ви вже увійшли", Toast.LENGTH_SHORT).show();
         }
     }
@@ -171,9 +173,19 @@ public class LoginPage extends AppCompatActivity
         }
 
     }
+    private boolean checkEditText(EditText editText) {
+        if (editText.getText().length() == 0) {
+            Toast.makeText(getBaseContext(), "Заповніть усі поля", Toast.LENGTH_SHORT).show();
+            return false;
+        } else {
+            return true;
+        }
+    }
     public void exitUser(){
-      FirebaseAuth.getInstance().signOut();
-      user=mAuth.getCurrentUser();
-       updateUI(user);
+        if(user!=null) {
+            FirebaseAuth.getInstance().signOut();
+            user = mAuth.getCurrentUser();
+            updateUI(user);
+        }
     }
 }
