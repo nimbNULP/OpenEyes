@@ -8,8 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -38,7 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class InformationComfortablePlace extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
     NavigationView navigationView;
     Fragment fragmentInformation, fragmentReviews;
     FirebaseStorage storage= FirebaseStorage.getInstance();
@@ -196,7 +196,8 @@ public class InformationComfortablePlace extends AppCompatActivity
     }
     public  void goToLogin(View view){
         Intent intent =new Intent(getBaseContext(), LoginPage.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+
     }
     public  void goToRegistration(View view){
         Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
@@ -251,6 +252,7 @@ public class InformationComfortablePlace extends AppCompatActivity
         }
     }
 
+
     public void exitUser(){
         if(user!=null) {
             FirebaseAuth.getInstance().signOut();
@@ -258,7 +260,6 @@ public class InformationComfortablePlace extends AppCompatActivity
             updateUI(user);
         }
     }
-
 
 
 

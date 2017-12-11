@@ -1,5 +1,6 @@
 package com.example.andriy.openeyes;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -127,6 +128,8 @@ public class LoginPage extends AppCompatActivity
     public  void signIn(View view){
         signIn.setClickable(false);
         signUp.setClickable(false);
+        final DialogFragment loadFragment = new Load();
+        loadFragment.show(getFragmentManager(), "Comment");
         if (user==null){
             if(checkEditText(editEmail)&&checkEditText(editPassword)) {
                 mAuth.signInWithEmailAndPassword(editEmail.getText().toString(), editPassword.getText().toString())
@@ -136,11 +139,14 @@ public class LoginPage extends AppCompatActivity
                                 if (task.isSuccessful()) {
                                     user = mAuth.getCurrentUser();
                                     if (user != null) {
-                                       finish();
+                                        loadFragment.dismiss();
+                                        Intent intent= new Intent();
+                                        setResult(RESULT_OK, intent);
+                                        finish();
                                     }
                                 }
                                     else {
-
+                                    loadFragment.dismiss();
                                         Toast.makeText(getBaseContext(), "Не вірний логін або пароль", Toast.LENGTH_SHORT).show();
                                         signIn.setClickable(true);
                                         signUp.setClickable(true);

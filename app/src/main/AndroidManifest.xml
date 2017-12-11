@@ -5,6 +5,7 @@
         android:glEsVersion="0x00020000"
         android:required="true">
     </uses-feature>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -18,7 +19,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/api_map_key" />
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -30,31 +31,37 @@
 
         <activity android:name=".MainMenu">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"
+                    android:screenOrientation="portrait"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".AddNewComfotablePlace"
             android:label="@string/title_activity_add_new_comfotable_place"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".LoginPage"
             android:label="@string/title_activity_login_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".RegistrationPage"
             android:label="@string/title_activity_registration_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".InformationComfortablePlace"
             android:label="@string/title_activity_information_comfortable_place"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TabFragment1" />
-        <activity android:name=".TabFragment2" />
-        <activity android:name=".AddPositionPlace" />
         <activity
+            android:screenOrientation="portrait"
+            android:name=".AddPositionPlace" />
+        <activity
+            android:screenOrientation="portrait"
             android:name=".ListComfortablePlace"
             android:label="@string/title_activity_list_comfortable_place"
             android:theme="@style/AppTheme.NoActionBar" />

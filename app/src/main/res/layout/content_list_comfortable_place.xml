@@ -16,6 +16,12 @@
         android:background="@color/colorPrimary"
         app:layout_scrollFlags="scroll|snap"
         app:tabSelectedTextColor="@color/white">
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabShowList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Карта" />
+
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabShowMap"
@@ -23,11 +29,7 @@
             android:layout_height="match_parent"
             android:text="Список" />
 
-        <android.support.design.widget.TabItem
-            android:id="@+id/tabShowList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Карта" />
+
 
     </android.support.design.widget.TabLayout>
 

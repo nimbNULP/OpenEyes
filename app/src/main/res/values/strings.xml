@@ -39,7 +39,7 @@
     <string name="addLatLng">Додати місцерозташуваня</string>
     <string name="showList">Відображення списком</string>
     <string name="showMap">Відображення на мапі</string>
-    <string name="haveToilet">Обладниний туалет</string>
+    <string name="haveToilet">Обладнана вбиральня</string>
     <string name="haveRamp">Наявність пандусу</string>
     <string name="haveSwaddingTable">Наявність пеленального столу</string>
     <string name="haveElevator">Наявність ліфту</string>
@@ -58,6 +58,11 @@
     <string name="gasStation">AЗС</string>
     <string name="all">Всі</string>
     <string name="able">Застосувати</string>
-    <string name="api_map_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM</string>
+    <string name="api_map_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCxPcUg-LhsMy1AWF0YixW0DtXpi-cCtkA</string>
     <string name="comfortablePlace">Зручні місця</string>
+    <string name="apply">Застосувати</string>
+    <string name="load">Завантаження</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -46,15 +46,30 @@ import java.util.ArrayList;
 
 
 public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
-    FirebaseFirestore dataBase=FirebaseFirestore.getInstance();
+    FirebaseFirestore dataBase = FirebaseFirestore.getInstance();
     ListView listOfPlace;
-    Place place=new Place();
+    Place place = new Place();
     GoogleMap map;
     MapView mapView;
     BitmapDescriptor icon;
+    boolean gasStation, farmace, shop, cafe, hospital, culturePlace, other, filture;
 
 
     public TabMapPlace() {
+        filture = false;
+    }
+
+    public TabMapPlace(boolean setGasStation, boolean setFarmace,
+                       boolean setShop, boolean setCafe, boolean setHospital, boolean setCulturePlace, boolean setOther) {
+        gasStation = setGasStation;
+        farmace = setFarmace;
+        shop = setShop;
+        cafe = setCafe;
+        hospital = setHospital;
+        culturePlace = setCulturePlace;
+        other = setOther;
+        filture = true;
+
 
     }
 
@@ -62,7 +77,7 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_tab_map_place, container, false);
-        mapView=(MapView) view.findViewById(R.id.map);
+        mapView = (MapView) view.findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
         mapView.onResume(); // needed to get the map to display immediately
         try {
@@ -71,11 +86,34 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
             e.printStackTrace();
         }
         mapView.getMapAsync(this);
-        getDataFromFirebase();
+        if (!filture) {
+            getPlaceFromDataBase();
+        } else {
+            if (gasStation) {
+                getFilturedPlaceFromDataBase("АЗС");
+            }
+            if (farmace) {
+                getFilturedPlaceFromDataBase("Аптека");
+            }
+            if (shop) {
+                getFilturedPlaceFromDataBase("Магазини");
+            }
+            if (hospital) {
+                getFilturedPlaceFromDataBase("Лікарня");
+            }
+            if (culturePlace) {
+                getFilturedPlaceFromDataBase("Культурні місця");
+            }
+            if (other) {
+                getFilturedPlaceFromDataBase("Інше");
+            }
+
+        }
+
 
         return view;
-    }
-    public void getDataFromFirebase() {
+}
+    public void getPlaceFromDataBase() {
         dataBase.collection("place")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -103,7 +141,7 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
                                             icon = BitmapDescriptorFactory.fromResource(R.drawable.good_gasstation);
                                         }
                                         break;
-                                    case "Аптеки":
+                                    case "Аптека":
                                         if(place.getRatingPlace()==1){
                                             icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_pharmacy);
                                         }else if(place.getRatingPlace()==2){
@@ -112,7 +150,7 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
                                             icon = BitmapDescriptorFactory.fromResource(R.drawable.good_pharmacy);
                                         }
                                         break;
-                                    case "Лікарні":
+                                    case "Лікарня":
                                         if(place.getRatingPlace()==1){
                                             icon= BitmapDescriptorFactory.fromResource(R.drawable.bad_hospital);
                                         }else if(place.getRatingPlace()==2){
@@ -157,6 +195,94 @@ public class TabMapPlace extends Fragment implements OnMapReadyCallback, GoogleM
 
                             }
                         } else {
+                            Log.d("Database", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+    }
+    public void getFilturedPlaceFromDataBase( String filture){
+        dataBase.collection("place")
+                .whereEqualTo("category", filture)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                place = document.toObject(Place.class);
+                                switch (place.getCategory()) {
+                                    case "АЗС":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_gasstation);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_gasstation);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_gasstation);
+                                        }
+                                        break;
+                                    case "Аптека":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_pharmacy);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_pharmacy);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_pharmacy);
+                                        }
+                                        break;
+                                    case "Лікарня":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_hospital);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_hospital);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_hospital);
+                                        }
+                                        break;
+                                    case "Магазини":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_shop);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_shop);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_shop);
+                                        }
+                                        break;
+                                    case "Заклади харчування":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_cafe);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_cafe);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_cafe);
+                                        }
+                                        break;
+                                    case "Культурні місця":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_culturalplace);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_culturalplace);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_culturalplace);
+                                        }
+                                        break;
+                                    case "Інше":
+                                        if (place.getRatingPlace() == 1) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.bad_sthelse);
+                                        } else if (place.getRatingPlace() == 2) {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.normal_sthelse);
+                                        } else {
+                                            icon = BitmapDescriptorFactory.fromResource(R.drawable.good_sthelse);
+                                        }
+                                        break;
+                                }
+                                map.addMarker(new MarkerOptions()
+                                        .position(new LatLng(place.getLatitude(), place.getLongitude()))
+                                        .title(place.name)
+                                        .snippet(place.describe))
+                                        .setIcon(icon);
+                            }
+                        }else {
                             Log.d("Database", "Error getting documents: ", task.getException());
                         }
                     }

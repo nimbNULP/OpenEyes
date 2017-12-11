@@ -19,7 +19,7 @@ android {
         }
 
         debug {
-                resValue 'string', 'google_maps_key', 'AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM'
+            resValue 'string', 'google_maps_key', 'AIzaSyBfrWT88oSCtRiLIcEPERZ2hk8DryYhKEM'
 
         }
 
@@ -27,6 +27,7 @@ android {
 }
 
 dependencies {
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.0'
     compile 'com.google.maps.android:android-maps-utils:0.4.4'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:26.1.0'
@@ -48,6 +49,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-places:11.6.0'
 
 }
+
 
 
 

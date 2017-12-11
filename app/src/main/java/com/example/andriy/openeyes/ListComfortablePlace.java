@@ -1,14 +1,20 @@
 package com.example.andriy.openeyes;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,7 +46,12 @@ public class ListComfortablePlace extends AppCompatActivity
     FirebaseUser user=mAuth.getCurrentUser();
     View anonim, users;
     NavigationView navigationView;
-
+    DialogFragment newFragment = new FilturePlace();
+    AlertDialog.Builder ad;
+    Context context;
+    boolean map;
+    boolean[] mCheckedItems = {true,true,true,true,true,true,true};
+    String[] checkPlaceName = {"АЗС", "Аптеки", "Магазини","Заклади харчування","Лікарні","Культурні місця","Інше"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +61,6 @@ public class ListComfortablePlace extends AppCompatActivity
         setSupportActionBar(toolbar);
         tabList=(TabItem) findViewById(R.id.tabShowList);
         tabMap=(TabItem) findViewById(R.id.tabShowMap);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -62,13 +72,15 @@ public class ListComfortablePlace extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         tabLayout=(TabLayout) findViewById(R.id.tabLayoutListPlace);
+        listPlace= new TabListPlace();
+        mapPlace= new TabMapPlace();
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
-                    case 0: showList();
+                    case 0:showMap();
                         break;
-                    case 1:showMap();
+                    case 1:showList();
                         break;
                 }
             }
@@ -83,10 +95,13 @@ public class ListComfortablePlace extends AppCompatActivity
 
             }
         });
+        map=true;
         listPlace= new TabListPlace();
+        mapPlace=new TabMapPlace();
         fragmentTransaction=getFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragmentContentListPlace,listPlace);
+        fragmentTransaction.add(R.id.fragmentContentListPlace,mapPlace);
         fragmentTransaction.commit();
+
 
     }
 
@@ -135,15 +150,14 @@ public class ListComfortablePlace extends AppCompatActivity
         return true;
     }
     public void showList(){
+        map=false;
         fragmentTransaction=getFragmentManager().beginTransaction();
-        listPlace= new TabListPlace();
         fragmentTransaction.replace(R.id.fragmentContentListPlace,listPlace);
         fragmentTransaction.commit();
     }
     public void showMap(){
-
+        map=true;
         fragmentTransaction=getFragmentManager().beginTransaction();
-        mapPlace= new TabMapPlace();
         fragmentTransaction.replace(R.id.fragmentContentListPlace,mapPlace);
         fragmentTransaction.commit();
 
@@ -151,6 +165,7 @@ public class ListComfortablePlace extends AppCompatActivity
     public void updateUI(FirebaseUser user){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if(user!=null) {
+            navigationView.removeHeaderView(anonim);
             navigationView.addHeaderView(users);
             GetUserInformation getInformation = new GetUserInformation();
             TextView nameText = (TextView) users.findViewById(R.id.userName);
@@ -172,12 +187,12 @@ public class ListComfortablePlace extends AppCompatActivity
     }
     public  void goToLogin(View view){
         Intent intent =new Intent(getBaseContext(), LoginPage.class);
-        startActivity(intent);
+        startActivityForResult(intent,4);
 
     }
     public  void goToRegistration(View view){
         Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
-        startActivity(intent);
+        startActivityForResult(intent,4);
     }
     public  void goToAddPlace(View view){
         if (user!=null) {
@@ -189,8 +204,80 @@ public class ListComfortablePlace extends AppCompatActivity
         }
     }
     public void  showFilture(View view){
-        DialogFragment newFragment = new FilturePlace();
-        newFragment.show(getFragmentManager(), "Comment");
+        onCreateDialog(3);
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case 3:
+
+                ad = new AlertDialog.Builder(this);
+
+                ad.setTitle("Виберіть категорію")
+                        .setCancelable(false)
+
+                        .setMultiChoiceItems(checkPlaceName, mCheckedItems,
+                                new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which, boolean isChecked) {
+                                        mCheckedItems[which] = isChecked;
+                                    }
+                                })
+
+                        // Добавляем кнопки
+                        .setPositiveButton("Готово",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        listPlace=new TabListPlace(mCheckedItems[0],mCheckedItems[1],mCheckedItems[2],mCheckedItems[3],mCheckedItems[4],mCheckedItems[5],mCheckedItems[6]);
+                                        mapPlace=new TabMapPlace(mCheckedItems[0],mCheckedItems[1],mCheckedItems[2],mCheckedItems[3],mCheckedItems[4],mCheckedItems[5],mCheckedItems[6]);
+                                        if(map) {
+                                            fragmentTransaction = getFragmentManager().beginTransaction();
+                                            fragmentTransaction.replace(R.id.fragmentContentListPlace, mapPlace);
+                                            fragmentTransaction.commit();
+                                        }
+                                        else {
+                                            fragmentTransaction = getFragmentManager().beginTransaction();
+                                            fragmentTransaction.replace(R.id.fragmentContentListPlace, listPlace);
+                                            fragmentTransaction.commit();
+                                        }
+                                    }
+                                })
+
+                        .setNegativeButton("Отмена",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+
+                                    }
+                                });
+
+        }
+
+        ad.show();
+        return ad.create();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Log.d("update", "OK");
+        switch (requestCode) {
+            case 4:
+                if(resultCode==RESULT_OK) {
+                    updateUI(FirebaseAuth.getInstance().getCurrentUser());
+
+                }
+                break;
+        }
+
+    }
+
+
 
 }

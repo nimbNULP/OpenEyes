@@ -1,5 +1,6 @@
 package com.example.andriy.openeyes;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -49,11 +50,16 @@ import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.ThrowOnExtraProperties;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -82,6 +88,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
     CheckBox haveToilet, haveSwaddingTable, haveElevator, haveRamp, haveButtonHelp;
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 3;
     GoogleApiClient mGoogleApiClient;
+    boolean checkName=true;
 
 
 
@@ -205,33 +212,64 @@ public class AddNewComfotablePlace extends AppCompatActivity
     public void addDataToDataBase(View view) {
         if (checkEditText(addNamePlace) && checkEditText(addAdressPlace) && checkEditText(addDescribePlace)&&checkPosition()) {
 
+                final DialogFragment loadFragment = new Load();
+            loadFragment.show(getFragmentManager(), "Comment");
             dataBase.collection("place")
-                    .document(addNamePlace.getText().toString())
-                    .set(new Place(addNamePlace.getText().toString(), addDescribePlace.getText().toString(), addAdressPlace.getText().toString(),
-                            getRatingPlace(),latitude,longitude, categoryPlace.getSelectedItem().toString(),haveToilet.isChecked(),
-                            haveSwaddingTable.isChecked(),haveRamp.isChecked(),haveElevator.isChecked(),haveButtonHelp.isChecked()))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
-                        public void onSuccess(Void aVoid) {
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    Log.d("check", document.toObject(Place.class).getName());
+                                    Log.d("check", addNamePlace.getText().toString());
+                                    if(document.toObject(Place.class).getName()==addNamePlace.getText().toString()){
+                                        checkName=false;
+                                        Log.d("check", "good");
+                                    }
+                                }
+                                if(checkName){
+                                    dataBase.collection("place")
+                                            .document(addNamePlace.getText().toString())
+                                            .set(new Place(addNamePlace.getText().toString(), addDescribePlace.getText().toString(), addAdressPlace.getText().toString(),
+                                                    getRatingPlace(), latitude, longitude, categoryPlace.getSelectedItem().toString(), haveToilet.isChecked(),
+                                                    haveSwaddingTable.isChecked(), haveRamp.isChecked(), haveElevator.isChecked(), haveButtonHelp.isChecked()))
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
 
-                            View toastDone = AddNewComfotablePlace.this.getLayoutInflater().inflate(R.layout.toast_done, null);
-                            Toast toast = new Toast(getApplicationContext());
-                            toast.setView(toastDone);
-                            toast.setDuration(Toast.LENGTH_SHORT);
-                            toast.show();
-                            Intent intent = new Intent(AddNewComfotablePlace.this, ListComfortablePlace.class);
-                            startActivity(intent);
+                                                    View toastDone = AddNewComfotablePlace.this.getLayoutInflater().inflate(R.layout.toast_done, null);
+                                                    Toast toast = new Toast(getApplicationContext());
+                                                    toast.setView(toastDone);
+                                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                                    toast.show();
+                                                    Intent intent = new Intent(AddNewComfotablePlace.this, ListComfortablePlace.class);
+                                                    startActivity(intent);
 
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(AddNewComfotablePlace.this, "Помилка запису данних", Toast.LENGTH_SHORT);
+                                                }
+                                            });
+                                }else{
+                                    loadFragment.dismiss();
+                                    Toast.makeText(getBaseContext(),"Така назва вже існує", Toast.LENGTH_SHORT).show();
+                                }
+
+                                    }
+                                }
+
+                            });
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddNewComfotablePlace.this, "Помилка запису данних", Toast.LENGTH_SHORT);
-                        }
-                    });
-        }
-    }
+                    }
+
+
+
+
+
 
     private float getRatingPlace() {
         float valueRatingPlace = 1;
@@ -326,6 +364,13 @@ public class AddNewComfotablePlace extends AppCompatActivity
            } else if (resultCode == RESULT_CANCELED) {
                // The user canceled the operation.
            }
+           break;
+           case 4:
+               if(resultCode==RESULT_OK) {
+                   updateUI(FirebaseAuth.getInstance().getCurrentUser());
+
+               }
+               break;
 
        }
     }
@@ -343,13 +388,14 @@ public class AddNewComfotablePlace extends AppCompatActivity
             // TODO: Handle the error.
         }
     }
-    public void goToLogin(View view) {
-        Intent intent = new Intent(getBaseContext(), LoginPage.class);
-        startActivity(intent);
+    public  void goToLogin(View view){
+        Intent intent =new Intent(getBaseContext(), LoginPage.class);
+        startActivityForResult(intent,4);
+
     }
-    public void goToRegistration(View view) {
-        Intent intent = new Intent(getBaseContext(), RegistrationPage.class);
-        startActivity(intent);
+    public  void goToRegistration(View view){
+        Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
+        startActivityForResult(intent,4);
     }
     public void updateUI(FirebaseUser user){
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -395,7 +441,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
     }
     private  void addSpinner(){
         categoryPlace=(Spinner) findViewById(R.id.categoryPlace);
-        String[] arrayCategory = {"Виберіть категорію", "АЗС", "Aптеки", "Магазини","Заклади харчування","Лікарня", "Культурні місця","Інше"};
+        String[] arrayCategory = {"Виберіть категорію", "АЗС", "Аптека", "Магазини","Заклади харчування","Лікарня", "Культурні місця","Інше"};
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_dropdown_item, arrayCategory);
         adapterCategory.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categoryPlace.setAdapter(adapterCategory);
@@ -407,6 +453,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
         haveRamp=(CheckBox) findViewById(R.id.haveRamp);
         haveSwaddingTable=(CheckBox) findViewById(R.id.haveSwaddingTable);
     }
+
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
