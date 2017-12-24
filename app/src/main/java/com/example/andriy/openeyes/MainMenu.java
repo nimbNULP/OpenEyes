@@ -27,6 +27,11 @@ public class MainMenu extends AppCompatActivity {
 //        Intent intent = new Intent(getApplicationContext(), MapLayout.class);
 //        startActivity(intent);
     }
+    public void  goToTransport(View view){
+        Intent intent = new Intent(getApplicationContext(), ComfortableTransport.class);
+        startActivity(intent);
+    }
+
 
 
 }

@@ -46,7 +46,6 @@ public class ListComfortablePlace extends AppCompatActivity
     FirebaseUser user=mAuth.getCurrentUser();
     View anonim, users;
     NavigationView navigationView;
-    DialogFragment newFragment = new FilturePlace();
     AlertDialog.Builder ad;
     Context context;
     boolean map;
@@ -117,38 +116,38 @@ public class ListComfortablePlace extends AppCompatActivity
 
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
-            case R.id.menuComfortablePlace:
-                Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
-                startActivity(intent);
-                break;
-            case R.id.nav_exit:
-                exitUser();
-                break;
+            Intent intent=new Intent();
+            switch(id){
+                case R.id.menuComfortablePlace:
+                    intent=new Intent(getBaseContext(), ListComfortablePlace.class);
+                    startActivity(intent);
+                    break;
+                case R.id.menuComfortableTransport:
+                    intent=new Intent(getBaseContext(), ComfortableTransport.class);
+                    startActivity(intent);
+                    break;
+                case R.id.navAboutUs:
+                    intent=new Intent(getBaseContext(), AboutUs.class);
+                    startActivity(intent);
+                    break;
+                case  R.id.navGoodLink:
+                    intent=new Intent(getBaseContext(), GoodLink.class);
+                    startActivity(intent);
+                    break;
+                case R.id.nav_exit:
+                    exitUser();
+                    break;
+            }
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+
     public void showList(){
         map=false;
         fragmentTransaction=getFragmentManager().beginTransaction();
@@ -194,6 +193,21 @@ public class ListComfortablePlace extends AppCompatActivity
         Intent intent =new Intent(getBaseContext(), RegistrationPage.class);
         startActivityForResult(intent,4);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Log.d("update", "OK");
+        switch (requestCode) {
+            case 4:
+                if(resultCode==RESULT_OK) {
+                    updateUI(FirebaseAuth.getInstance().getCurrentUser());
+
+                }
+                break;
+        }
+
+    }
     public  void goToAddPlace(View view){
         if (user!=null) {
             Intent intent = new Intent(getBaseContext(), AddNewComfotablePlace.class);
@@ -211,7 +225,6 @@ public class ListComfortablePlace extends AppCompatActivity
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case 3:
-
                 ad = new AlertDialog.Builder(this);
 
                 ad.setTitle("Виберіть категорію")
@@ -227,7 +240,7 @@ public class ListComfortablePlace extends AppCompatActivity
                                 })
 
                         // Добавляем кнопки
-                        .setPositiveButton("Готово",
+                        .setPositiveButton(R.string.apply,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog,
@@ -247,7 +260,7 @@ public class ListComfortablePlace extends AppCompatActivity
                                     }
                                 })
 
-                        .setNegativeButton("Отмена",
+                        .setNegativeButton(R.string.cancel,
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog,
@@ -258,25 +271,12 @@ public class ListComfortablePlace extends AppCompatActivity
                                 });
 
         }
-
+      
         ad.show();
         return ad.create();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        Log.d("update", "OK");
-        switch (requestCode) {
-            case 4:
-                if(resultCode==RESULT_OK) {
-                    updateUI(FirebaseAuth.getInstance().getCurrentUser());
 
-                }
-                break;
-        }
-
-    }
 
 
 

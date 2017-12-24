@@ -88,42 +88,38 @@ public class RegistrationPage extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.registration_page, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
+        Intent intent = new Intent();
+        switch (id) {
             case R.id.menuComfortablePlace:
-                Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
+                intent = new Intent(getBaseContext(), ListComfortablePlace.class);
                 startActivity(intent);
+                break;
+            case R.id.menuComfortableTransport:
+                intent = new Intent(getBaseContext(), ComfortableTransport.class);
+                startActivity(intent);
+                break;
+            case R.id.navAboutUs:
+                intent = new Intent(getBaseContext(), AboutUs.class);
+                startActivity(intent);
+                break;
+            case R.id.navGoodLink:
+                intent = new Intent(getBaseContext(), GoodLink.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_exit:
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
     public void addUser(View view) {
@@ -249,5 +245,6 @@ public class RegistrationPage extends AppCompatActivity
             return true;
         }
     }
+
 
 }

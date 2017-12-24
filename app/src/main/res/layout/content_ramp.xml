@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.andriy.openeyes.Ramp"
+    tools:showIn="@layout/app_bar_ramp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="8dp">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Рівень ухилу"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:text="Найголовніше в пандусах – це градус нахилу. Вимірюється він у відсотках і має наступні показники:\n
+
+1) Згідно з чинним вимогам максимально допустимий кут ухилу складає 5% або 2.9 градуси. При цьому висота підйому пандуса – 80 сантиметрів.\n
+2) Якщо підлога нерівна і перепади його висоти становлять 20 сантиметрів, за нормами Бніп допустимо збільшення кута нахилу до 10% або 5.7 градуси.\n
+3) У тих випадках, коли інвалідний пандус встановлюється на нетривалий час і вертикальний підйом конструкції не перевищує 50 сантиметрів, а її довжина – 60 сантиметрів, кут ухилу може скласти 8% або 4.8 градуси.\n"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text1" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Розмір"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text2" />
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="1) Перед підйомом інвалідного пандуса обов’язково повинна бути майданчик. Її розміри не повинні перевищувати габарити інвалідної коляски. Точно така ж майданчик передбачається і в кінці спуску.\n
+Ширина конструкції, якщо на ній передбачено односторонній рух інвалідів, повинна складати, як мінімум 90 сантиметрів, а ширина пандуса з двостороннім рухом – 180 сантиметрів. У другому випадку кут нахилу зменшується до 6.7%. Можливий також варіант з установкою поручня посередині конструкції."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text3" />
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Поручні"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text4" />
+
+    <TextView
+        android:id="@+id/text6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="1) У випадках, коли висота підйому конструкції перевищує 15 сантиметрів, а довжина 180 сантиметрів, наявність поручнів є обов’язковим.\n
+2) Такі огорожі передбачені по всій довжині інвалідного пандуса з обох його сторін. Крім того, вони повинні бути довше самої конструкції на 30 сантиметрів, а їх допустимий діаметр становить 30-50 міліметрів.\n
+3) Поручні, які монтуються на пандуси для інвалідів, повинні бути протягнуті по всій довжині конструкції.\n
+4) Рекомендується монтаж поручнів на висоті 60, а також 80 сантиметрів. Для дітей, що пересуваються в інвалідних візках, поручні кріпляться на висоті 50 сантиметрів.\n
+5) Для попередження зісковзування коляски встановлюються спеціальні бортики по краях споруди, висота яких становить 5 сантиметрів."
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text5" />
+
+    <TextView
+        android:id="@+id/text7"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Вибір конструкції"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text6" />
+
+    <TextView
+        android:id="@+id/text8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="1) Якщо передбачається індивідуальна експлуатація конструкції, для зручності слід врахувати параметри інвалідного візка: кількість, висоту і товщину коліс, а також відстань між ними.\n
+2) Сполучні перегородки, по яких переміщається візок, не повинні заважати пішоходам.\n
+3) На площину конструкції, по якій здійснюється рух, повинно бути нанесено спеціальне покриття, що запобігає ковзанню.\n
+4) Важливо враховувати і те, з якого матеріалу виконана пристрій, щоб уникнути пошкоджень сходи.\n
+5) На пандусі повинні бути передбачені спеціальні демпфери, що сприяють безшумній експлуатації пристрою.\n"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text7" />
+
+</android.support.constraint.ConstraintLayout>
+</ScrollView>
+</android.support.constraint.ConstraintLayout>

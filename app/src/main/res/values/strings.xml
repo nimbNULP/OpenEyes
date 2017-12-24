@@ -46,6 +46,7 @@
     <string name="haveButtonHelp">Наявність кнопки виклику</string>
     <string name="terms">Умови</string>
     <string name="title_activity_list_comfortable_place">ListComfortablePlace</string>
+    <string name="title_activity_comfortable_transport">Зручний транспорт</string>
     <string name="noComment">Немає коментарів</string>
     <string name="addInfromationFromGoogle">Додати інформацію з Google Maps</string>
     <string name="filture">Фільтр</string>
@@ -62,7 +63,11 @@
     <string name="comfortablePlace">Зручні місця</string>
     <string name="apply">Застосувати</string>
     <string name="load">Завантаження</string>
+    <string name="aboutUs">Про нас</string>
+    <string name="title_activity_about_us">Про нас</string>
+    <string name="whoWork">Над проектом працювали:</string>
+    <string name="title_activity_good_link">Корисна інформація</string>
+    <string name="title_activity_ramp">Яким повинен бути пандус</string>
+    <string name="title_activity_get_ramp">Як отримати пандус</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -74,12 +74,7 @@ public class LoginPage extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.login_page, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -102,9 +97,22 @@ public class LoginPage extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch(id){
+        Intent intent = new Intent();
+        switch (id) {
             case R.id.menuComfortablePlace:
-                Intent intent=new Intent(getBaseContext(), ListComfortablePlace.class);
+                intent = new Intent(getBaseContext(), ListComfortablePlace.class);
+                startActivity(intent);
+                break;
+            case R.id.menuComfortableTransport:
+                intent = new Intent(getBaseContext(), ComfortableTransport.class);
+                startActivity(intent);
+                break;
+            case R.id.navAboutUs:
+                intent = new Intent(getBaseContext(), AboutUs.class);
+                startActivity(intent);
+                break;
+            case R.id.navGoodLink:
+                intent = new Intent(getBaseContext(), GoodLink.class);
                 startActivity(intent);
                 break;
             case R.id.nav_exit:

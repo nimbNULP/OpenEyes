@@ -158,12 +158,7 @@ public class AddNewComfotablePlace extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_new_comfotable_place, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -185,13 +180,27 @@ public class AddNewComfotablePlace extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        switch (id) {
+        Intent intent=new Intent();
+        switch(id){
             case R.id.menuComfortablePlace:
-                Intent intent = new Intent(AddNewComfotablePlace.this, ListComfortablePlace.class);
+                intent=new Intent(getBaseContext(), ListComfortablePlace.class);
                 startActivity(intent);
+                break;
+            case R.id.menuComfortableTransport:
+                intent=new Intent(getBaseContext(), ComfortableTransport.class);
+                startActivity(intent);
+                break;
+            case R.id.navAboutUs:
+                intent=new Intent(getBaseContext(), AboutUs.class);
+                startActivity(intent);
+                break;
+            case  R.id.navGoodLink:
+                intent=new Intent(getBaseContext(), GoodLink.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_exit:
+                exitUser();
                 break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

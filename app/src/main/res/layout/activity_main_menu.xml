@@ -16,6 +16,7 @@
 
 
     <LinearLayout
+        android:onClick="goToTransport"
         android:id="@+id/comfortableTransport"
         android:layout_width="265dp"
         android:layout_height="70dp"

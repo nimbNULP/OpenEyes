@@ -13,13 +13,13 @@
             android:icon="@drawable/place"
             android:title="@string/comfortablePlace" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/navGoodLink"
             android:icon="@drawable/goodlink"
             android:title="@string/goodLink" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/navAboutUs"
+            android:icon="@drawable/about_us"
+            android:title="@string/aboutUs" />
     </group>
 
     <item android:title="Налаштування">

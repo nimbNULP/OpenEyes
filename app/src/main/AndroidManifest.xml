@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.andriy.openeyes">
+
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true">
-    </uses-feature>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -20,51 +21,70 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_map_key" />
-
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version">
-        </meta-data>
-
-
-
+            android:value="@integer/google_play_services_version" />
 
         <activity android:name=".MainMenu">
+
+        </activity>
+        <activity
+            android:name=".AddNewComfotablePlace"
+            android:label="@string/title_activity_add_new_comfotable_place"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginPage"
+            android:label="@string/title_activity_login_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RegistrationPage"
+            android:label="@string/title_activity_registration_page"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".InformationComfortablePlace"
+            android:label="@string/title_activity_information_comfortable_place"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddPositionPlace"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListComfortablePlace"
+            android:label="@string/title_activity_list_comfortable_place"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"
-                    android:screenOrientation="portrait"/>
+                <action
+                    android:name="android.intent.action.MAIN"
+                    android:screenOrientation="portrait" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".ComfortableTransport"
+            android:label="@string/title_activity_comfortable_transport"
             android:screenOrientation="portrait"
-            android:name=".AddNewComfotablePlace"
-            android:label="@string/title_activity_add_new_comfotable_place"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".LoginPage"
-            android:label="@string/title_activity_login_page"
+            android:name=".AboutUs"
+            android:label="@string/title_activity_about_us"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".RegistrationPage"
-            android:label="@string/title_activity_registration_page"
+            android:name=".GoodLink"
+            android:label="@string/title_activity_good_link"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".InformationComfortablePlace"
-            android:label="@string/title_activity_information_comfortable_place"
+            android:name=".Ramp"
+            android:label="@string/title_activity_ramp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:screenOrientation="portrait"
-            android:name=".AddPositionPlace" />
-        <activity
-            android:screenOrientation="portrait"
-            android:name=".ListComfortablePlace"
-            android:label="@string/title_activity_list_comfortable_place"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".GetRamp"
+            android:label="@string/title_activity_get_ramp"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

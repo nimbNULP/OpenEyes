@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.andriy.openeyes.GetRamp"
+    tools:showIn="@layout/app_bar_get_ramp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="8dp">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Крок 1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:text="Отримати направлення: для повнолітньої людини з інвалідністю — на медико-соціальну експертну комісію (МСЕК) за місцем її проживання, а для дитини до 18 років — на лікувально-консультативну комісію (ЛКК) при поліклініці. Саме ці комісії розробляють індивідуальну програму реабілітації (ІПР) згідно з п. 4 відповідного Положення, затвердженого Кабміном. У ній за ст. 30 Закону про основи соцзахисту, яку я згадувала раніше, і повинна бути записана потреба в пандусі чи в іншому спеціальному пристрої. Метою створення ІПР необхідно визначити «надання рекомендацій щодо житлово-побутових умов». Таке направлення дає сімейний лікар після проходження дорослим або дитиною лікарів-спеціалістів."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text1" />
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Крок 2"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text2"/>
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:text=" За результатами огляду МСЕК або ЛКК оформити ІПР. Відповідно до п.п. 5 і 8 Положення вона створюється протягом місяця від дня звернення до МСЕК за участі людини з інвалідністю або законного представник дитини з інвалідністю (хтось із батьків або опікунів). Це означає, що така людина вправі казати членам комісії, що саме їй потрібно: пандус, ліфт, інвалідний візок, путівку до санаторію та навіть просторий санвузол."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text3" />
+            <TextView
+                android:id="@+id/text5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Крок 3"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text4"/>
+
+            <TextView
+                android:id="@+id/text6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:text="У пункті 7 «Соціальна та побутова реабілітація» ІПР обов’язково зазначити пандус або інше пристосування, якщо прибудинкова територія не дозволяє встановити пандус з потрібним кутом ухилу. У пп. 2.7.7 Порядку складання форм ІПР, затвердженого Наказом МОЗ України від 8 жовтня 2007 року, потреба в таких засобах і пристосуваннях визначається комісіями після обстеження соціально-побутових умов проживання дорослої людини або дитини з інвалідністю за участю працівників соціальних служб.\n \n
+Якщо комісія не погоджується записати такі засоби реабілітації до ІПР, дорослий з інвалідністю або законний представник дитини має право не підписувати ІПР і оскаржити цю відмову до вищестоящої комісії."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text5" />
+            <TextView
+            android:id="@+id/text7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Крок 4"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text6"/>
+
+            <TextView
+                android:id="@+id/text8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:text="Якщо ж ІПР оформити вдалося, необхідно написати заяву про встановлення пандусу (іншого пристосування) до:\n
+1) депутата Київради, обраного від округу, де мешкає людина (дитина) з інвалідністю, — якщо будинок перебуває у власності міста. Такі будинки обслуговуються конторами, типу «ЖЕК»;\n
+2) голови ОСББ або ЖБК, — якщо будинок керується цими організаціями."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text7" />
+            <TextView
+                android:id="@+id/text9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Крок 5"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text8"/>
+
+            <TextView
+                android:id="@+id/text10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:text="Якщо протягом року після звернення із заявою пандус (інше пристосування) встановлено не буде, людина з інвалідністю (законний представник дитини з інвалідністю) має право:\n
+1) вимагати надання іншого житла в будинку, де є пандус;\n
+2) грошової компенсації вартості пандусу та робіт з його встановлення;\n
+3) звертатися до поліції із заявою про незаконне позбавлення волі особи, оскільки відсутність пандусу (іншого пристосування) позбавляє людину (дитину) з інвалідністю можливості вільно виходити з дому;\n
+4) кожні два роки оформлювати ІПР з пандусом (іншим пристосуванням) і подавати аналогічні заяви, в яких зазначати, що попередні заяви так і не було задоволено.\n \n
+При цьому заміну житла та грошову компенсацію можна вимагати як через суд, так і без нього.\n"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text9" />
+
+</android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
